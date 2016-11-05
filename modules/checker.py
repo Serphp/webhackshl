@@ -113,6 +113,7 @@ def installall():
         print ""
         cAmarillo("Removiendo el repositorio temporal de Kali Linux ...")
         os.system("sudo rm -rf /etc/apt/sources.list.d/kalitemp.list")
+        os.system("sudo apt update")
         os.system("clear")
         cVerde("La instalacion se realizo correctamente.")
         cVerde("Todo lo necesario esta instalado, procediendo.")
