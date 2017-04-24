@@ -19,8 +19,6 @@ luego:
 
 #Soporte y contacto.
 
-IRC: Server: irc.stormbit.net | Canal: #SHL | Puerto: 6697 (SSL)
+Sala Riot: https://riot.im/app/#/room/#securityhacklabs:matrix.org
 
-XMPP/Email: securityhacklabs@cock.lu
-            tolosaeduard@cock.li
-            PentSec@cock.li
+XMPP/Email: tolosaeduard@cock.li
