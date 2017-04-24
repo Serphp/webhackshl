@@ -157,18 +157,30 @@ def bypasscloud():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
     resp=raw_input("Introduce tu Respuesta y/n : ")
     if resp=="y":
-        host()
-        logsalida=logs.randomarch("bypass/","BYPASSER",".log")
-        checker.cAmarillo("Intentando Bypassear Cloudflare usando fierce...")
-        subprocess.call(["fierce","-dns",target,"-fulloutput",logsalida])
-        print ""
-        checker.cAmarillo("--------------------------------------------------------")
-        checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsalida])
-        checker.cAmarillo("--------------------------------------------------------")
-        print ""
+        try:
+            host()
+            logsalida=logs.randomarch("bypass/","BYPASSER",".log")
+            checker.cAmarillo("Intentando Bypassear Cloudflare usando fierce...")
+            subprocess.call(["fierce","-dns",target,"-fulloutput",logsalida]) 
+            print ""
+            checker.cAmarillo("--------------------------------------------------------")
+            checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsalida])
+            checker.cAmarillo("--------------------------------------------------------")
+            print ""
+        except OSError:
+            subprocess.call(["fierce.pl","-dns",target,"-fulloutput",logsalida])
+        except:
+            print "Ha ocurrido un error, saliendo."
+            pass
     elif resp=="n":
-        host()
-        subprocess.call(["fierce","-dns",target])
+        try:
+            host()
+            subprocess.call(["fierce","-dns",target]) 
+        except OSError:
+            subprocess.call(["fierce.pl","-dns",target])
+        except:
+            print "Ha ocurrido un error, saliendo."
+            pass
 
 def menu():
     checker.cAmarillo("Por favor selecciona una de las siguientes opciones")
