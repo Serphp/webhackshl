@@ -23,11 +23,26 @@ isnm=os.path.isfile("/usr/bin/nmap")
 isfierce=os.path.isfile("/usr/bin/fierce") or os.path.isfile("/usr/bin/fierce.pl")
 ismap=os.path.isfile("/usr/bin/sqlmap")
 isenum=os.path.isfile("/usr/bin/dnsenum")
-isnikto=os.path.isfile("/usr/bin/nikto")
+isnikt=os.path.isfile("/usr/bin/nikto")
 iswhatw=os.path.isfile("/usr/bin/whatweb")
 iswp=os.path.isfile("/usr/bin/wpscan")
 iscurl=os.path.isfile("/usr/bin/curl")
 isgit=os.path.isfile("/usr/bin/git")
+
+def distribucion():
+    iskalideb=os.path.isfile("/etc/debian_version") or os.path.isfile("/etc/apt/sources.list")
+    isarch=os.path.isfile("/etc/arch-release") or os.path.isfile("/etc/pacman.conf")
+    global DISTRO
+    if iskalideb:
+        print "Usted está usando una distribución basada en Debian!\n"
+        DISTRO="kalideb"
+    elif isarch:
+        print "Usted está usando ArchLinux!\n"
+        DISTRO="ArchLinux"
+    else:
+        print "Distribución Linux desconocida."
+
+
 def cRojo(prt): print("\033[91m {}\033[00m" .format(prt))
 def cVerde(prt): print("\033[92m {}\033[00m" .format(prt))
 def cAmarillo(prt): print("\033[93m {}\033[00m" .format(prt))
@@ -37,40 +52,65 @@ def cCian(prt): print("\033[96m {}\033[00m" .format(prt))
 def cGrisclaro(prt): print("\033[97m {}\033[00m" .format(prt))
 def cNegro(prt): print("\033[98m {}\033[00m" .format(prt))
 
+def checkarch():
+    global archb
+    cCian("verificando si existen los repositorios de BlackArch")
+    archb=os.system("cat /etc/pacman.conf | grep 'blackarch'")
+    if archb == 0:
+        cRojo("Los repositorios de BlackArch Existen")
+    else:
+        cRojo("Los Repositorios de BlackArch No existen y se añadiran para continuar")
+        os.system("sudo echo -e '\n[blackarch]\nSigLevel = Never\nServer = https://www.blackarch.org/blackarch/$repo/os/$arch' | sudo tee -a /etc/pacman.conf")
+
 
 def checkali():
     cCian("verificando si existen los repositorios de kali-rolling")
+    global kalic
     kalic=os.system("cat /etc/apt/sources.list | grep 'deb http://http.kali.org/kali kali-rolling main contrib non-free'")
     if kalic == 0:
         cRojo("Los repositorios de Kali-rolling Existen")
-        repokali()
     else:
-        cRojo("Los Repositorios de Kali-rolling No existes y se añadiran para continuar")
-        updatetools()
+        cRojo("Los Repositorios de Kali-rolling No existen y se añadiran para continuar")
+        os.system("sudo echo -e '\ndeb http://http.kali.org/kali kali-rolling main contrib non-free' | sudo tee -a /etc/apt/sources.list")
+        cAmarillo("Importando las claves de GNU/Kali Linux para ejecutar la instalacion...")
+        os.system("sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com ED444FF07D8D0BF6")
 
-def updatetools():
+def updatetools(DISTRO):
     respuesta=raw_input("Introduce tu opcion y=continua con la instalación, n=anula la instalación. y/n: ")
-    if respuesta=="y":
+    if respuesta=="y" and DISTRO== "kalideb":
         cAmarillo("Para realizar esta instalación necesitas privilegios root o sudo, por favor introduzca tus credenciales cuando se le soliciten.")
         cAmarillo("Añadiendo el repositorio temporal de Kali a tu lista de repossitorios ...")
-        os.system("sudo echo -e '\ndeb http://http.kali.org/kali kali-rolling main contrib non-free' | sudo tee -a /etc/apt/sources.list.d/kalitemp.list")
         print ""
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo apt update")
         cAmarillo("actualizando Herramientas del sistema...")
-        os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        correctinstall==os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        if correctinstall==0:
+            print ""
+            cVerde("La actualizacion se realizo correctamente.")
+            cVerde("Todo lo necesario esta actualizado, procediendo.")
+        else:
+            cVerde("Ha ocurrido un error.")
+
+    elif respuesta=="y" and DISTRO== "ArchLinux":
+        cAmarillo("Para realizar esta instalación necesitas privilegios root o sudo, por favor introduzca tus credenciales cuando se le soliciten.")
         print ""
-        cAmarillo("Removiendo el repositorio temporal de Kali Linux ...")
-        os.system("sudo rm -rf /etc/apt/sources.list.d/kalitemp.list")
-        os.system("sudo apt update")
-        cRojo("La actualizacion se realizo correctamente.")
-        cRojo("Todo lo necesario esta actualizado, procediendo.")
+        cAmarillo("Actualizando tu lista de paquetes ...")
+        os.system("sudo pacman -Sy")
+        cAmarillo("Actualizando Herramientas del sistema...")
+        correctinstall=os.system("sudo pacman --needed -S nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        if correctinstall==0:
+            print ""
+            cVerde("La actualizacion se realizo correctamente.")
+            cVerde("Todo lo necesario esta actualizado, procediendo.")
+        else:
+            cRojo("Ha ocurrido un error.")
     elif respuesta == "n":
         cAmarillo("Actualizacion abortada, saliendo ...")
         os._exit(0)
     else:
         cRojo("Opcion incorrecta.")
-        updatetools()
+        updatetools(DISTRO)
 
 def repokali():
     respuesta=raw_input("Introduce tu opcion y=continua con la instalación, n=anula la instalación. y/n: ")
@@ -80,30 +120,51 @@ def repokali():
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo apt update")
         cAmarillo("actualizando Herramientas del sistema...")
-        os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
-        print ""
-        cRojo("La actualizacion se realizo correctamente.")
-        cRojo("Todo lo necesario esta actualizado, procediendo.")
+        installcorrect=os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        if installcorrect == 0:
+            print ""
+            cRojo("La actualizacion se realizo correctamente.")
+            cRojo("Todo lo necesario esta actualizado, procediendo.")
+        else:
+            print "Ha ocurrido un error, intentando nuevamente."
+            repokali()
     elif respuesta == "n":
         cAmarillo("Actualizacion abortada, saliendo ...")
         os._exit(0)
     else:
         cRojo("Opcion incorrecta.")
-        updatetools()
+        updatetools(DISTRO)
 
-def installall():
+def repoarch():
+    respuesta=raw_input("Introduce tu opcion y=continua con la instalación, n=anula la instalación. y/n: ")
+    if respuesta=="y":
+        cAmarillo("Para realizar esta instalación necesitas privilegios root o sudo, por favor introduzca tus credenciales cuando se le soliciten.")
+        print ""
+        cAmarillo("Actualizando tu lista de paquetes ...")
+        os.system("sudo pacman -Sy")
+        cAmarillo("Actualizando herramientas del sistema...")
+        installcorrect=os.system("sudo pacman --needed -S nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        if installcorrect == 0:
+            print ""
+            cRojo("La actualizacion se realizo correctamente.")
+            cRojo("Todo lo necesario esta actualizado, procediendo.")
+        else: 
+            print "Ha ocurrido un error, intentandolo de nuevo."
+            repoarch()
+    elif respuesta == "n":
+        cAmarillo("Actualizacion abortada, saliendo ...")
+        os._exit(0)
+    else:
+        cRojo("Opcion incorrecta.")
+        updatetools(DISTRO)
+
+def installall(DISTRO):
     cRojo("""Para que este framework funcione correctamente, necesitas tener instaladas las siguientes herramientas:
     nmap, fierce, sqlmap, dnsenum, nikto, john, gzip, tor, curl, ruby, whatweb & wpscan. Al parecer hay herramientas faltantes en tu sistema!.
-    ¿Deseas instalar todas las herramientas necesarias? Esto solo funciona con sistemas basados en Debian.
     """)
     decision=raw_input("Introduce tu opcion y=continua con la instalación, n=anula la instalación. y/n: ")
-    if decision=="y":
+    if decision=="y" and DISTRO == "kalideb":
         cRojo("Para realizar esta instalación necesitas privilegios root o sudo, por favor introduzca tus credenciales cuando se le soliciten.")
-        cAmarillo("Añadiendo el repositorio temporal de Kali a tu lista de repossitorios ...")
-        os.system("sudo echo -e '\ndeb http://http.kali.org/kali kali-rolling main contrib non-free' | sudo tee -a /etc/apt/sources.list.d/kalitemp.list")
-        print ""
-        cAmarillo("Importando las claves de GNU/Kali Linux para ejecutar la instalacion...")
-        os.system("sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com ED444FF07D8D0BF6")
         print ""
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo apt update")
@@ -111,23 +172,49 @@ def installall():
         cAmarillo("Instalando los paquetes ...")
         os.system("sudo apt install nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
         print ""
-        cAmarillo("Removiendo el repositorio temporal de Kali Linux ...")
-        os.system("sudo rm -rf /etc/apt/sources.list.d/kalitemp.list")
         os.system("clear")
         cVerde("La instalacion se realizo correctamente.")
         cVerde("Todo lo necesario esta instalado, procediendo.")
+    elif decision == "y" and DISTRO == "ArchLinux":
+        cRojo("Para realizar esta instalación necesitas privilegios root o sudo, por favor introduzca tus credenciales cuando se le soliciten.")
+        print ""
+        cAmarillo("Actualizando tu lista de paquetes ...")
+        os.system("sudo pacman -Sy")
+        os.system("clear")
+        cAmarillo("Instalando los paquetes ...")
+        correctinstall=os.system("sudo pacman --needed -S nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        if correctinstall == 0:
+            print ""
+            os.system("clear")
+            cVerde("La instalacion se realizo correctamente.")
+            cVerde("Todo lo necesario esta instalado, procediendo.")
+        else:
+            cRojo("Ha ocurrido un error, intentando de nuevo.")
+            installall(DISTRO)
     elif decision == "n":
         print "Instalación abortada, saliendo ..."
         os._exit(0)
     else:
         print "Opcion incorrecta."
-        installall()
+        installall(DISTRO)
 
 def check():
     if isnm and isfierce and ismap and isenum and isnikto and iswhatw and iswp and isrb and isgit and iscurl and istor and isgzip and isjohn:
         cVerde("Todo lo necesario esta instalado, procediendo.")
     else:
-        installall()
+        distribucion()
+        if DISTRO == "kalideb":
+            checkali()
+            if kalic == 0:
+                repokali()
+            else:
+                installall(DISTRO)
+        elif DISTRO == "ArchLinux":
+            checkarch()
+            if archb == 0:
+                repoarch()
+            else:
+                installall(DISTRO)
 
 def dtor():
     cVerde("Verificando que el servicio TOR esté activo...")
@@ -163,8 +250,12 @@ def gems():
             inst = raw_input("Deseas continuar con la instalación? y/n : ")
             if inst=="y":
                 cAmarillo("Instalando bundler...")
-                os.system("sudo gem install bundler && bundle install")
-                pass
+                correctgem=os.system("sudo gem install bundler && bundle install")
+                if correctgem==0:
+                    pass
+                else:
+                    cRojo("Las gemas no se instalaron correctamente, por favor asegurate de estar dentro de la carpeta de webhackshl. esto traera problemas en la opcion d) del menú usando joomlavs. Continuando...")
+                    pass
             elif inst=="n":
                 cRojo("Instalacion cancelada, esto traera problemas en la opcion d) del menú usando joomlavs. Continuando...")
                 pass
@@ -173,3 +264,6 @@ def gems():
                 gemsinstall()
         gemsinstall()
 
+def utools():
+    distribucion()
+    updatetools(DISTRO)

@@ -41,7 +41,7 @@ if args.update:
 # Aqui procesamos el update a la herramientas del sistema.
 if args.utools:
     checker.cRojo("Iniciando la actualizacion de las Herramientas de tu sistema...")
-    checker.checkali()
+    checker.utools()
     os._exit(0)
 
 # Version de la herramienta.

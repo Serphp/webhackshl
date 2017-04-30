@@ -69,7 +69,7 @@ def urlglob():
 def postglob():
     try:
         global post
-        post=raw_input("introduce los datos post para la inyeccion sqli: ")
+        post=raw_input("Introduce los datos post para la inyeccion: ")
         post=post.translate(None, "%+'") 
         if post != "":
             return post
