@@ -59,8 +59,8 @@ def logo():
 
     Programador: Eduard Eliecer Tolosa Toloza 
       XMPP/Email: tolosaeduard@cock.lu
-IRC: Server irc.stormbit.net | Canal #SHL | Puerto 6697 (SSL)
-    Security Hack Labs Team. @SecurityHackLab
+ Contacto y sala de chat: https://riot.im/app/#/room/#securityhacklabs:matrix.org
+    Security Hack Labs Team. @SecHackLabs
     Blog: https://securityhacklabs.blogspot.com
 
 

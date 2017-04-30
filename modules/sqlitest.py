@@ -19,7 +19,7 @@ def logo():
         print "|         Programador: Eduard Eliecer Tolosa Toloza                 |"
         print "|               XMPP/Email: tolosaeduard@cock.lu                    |"
         print "|                      Sqlitest.py  v 1.0                           |"
-        print "|           Security Hack Labs Team @SecurityHackLab                |"
+        print "|             Security Hack Labs Team @SecHackLabs                  |"
         print "|-------------------------------------------------------------------|\n"
 	print W
 
