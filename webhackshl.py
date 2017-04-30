@@ -23,7 +23,7 @@ from modules import portsmod
 from modules import fingerwebmod
 from modules import checker
 from modules import hashid
-version='v1.5 Estable'
+version='v1.6 Estable'
 
 parser = argparse.ArgumentParser(prog='webhackshl.py',usage='python2 webhackshl.py',description='WebHackSHL es un conjunto de herramientas desarrollado por Security Hack Labs, para realizar auditorias de seguridad web desde basicas hasta avanzadas, diseñado especialmente para sistemas Debian o basados en el, como Kali Linux. Cualquier problema reportelo en Github o a nuestas cuentas de Email y/o Twitter.')
 parser.add_argument("-u", "--update", help="Actualiza WebHackSHL a la mas version mas reciente.", action="store_true")
@@ -55,7 +55,7 @@ def logo():
 / / /\ \ \___| |__   /\  /\__ _  ___| | __/ _\  /\  /\/ /
 \ \/  \/ / _ \ '_ \ / /_/ / _` |/ __| |/ /\ \  / /_/ / /   
  \  /\  /  __/ |_) / __  / (_| | (__|   < _\ \/ __  / /___ 
-  \/  \/ \___|_.__/\/ /_/ \__,_|\___|_|\_\\\\__/\/ /_/\____/ 
+  \/  \/ \___|_.__/\/ /_/ \__,_|\___|_|\_\\\\__/\/ /_/\____/ v1.6 Estable
 
     Programador: Eduard Eliecer Tolosa Toloza 
       XMPP/Email: tolosaeduard@cock.lu
