@@ -19,8 +19,12 @@ http://localhost:15004/javascript?inj=*
 http://localhost:15004/blind/javascript?inj=*
 http://localhost:15004/dot?inj=*
 http://localhost:15004/blind/dot?inj=*
+http://localhost:15004/dust?inj=*
+http://localhost:15004/blind/dust?inj=*
 http://localhost:15004/marko?inj=*
 http://localhost:15004/blind/marko?inj=*
+http://localhost:15004/ejs?inj=*
+http://localhost:15004/blind/ejs?inj=*
 
 Web server standard output and error are redirected to file
 $webserver_log
@@ -46,6 +50,7 @@ function run_webserver()
     npm install dustjs-helpers@1.5.0
     npm install dot
     npm install marko
+    npm install ejs
   fi
 
   cp ../connect-app.js connect-app.js
@@ -55,13 +60,20 @@ function run_webserver()
 }
 
 if [[ "$1" == "--test" ]]; then
+  
+  if [ "$#" -gt 1 ]; then
+    TESTS="$2"
+  else
+    TESTS="*"
+  fi
+  
   echo 'Run web server and launch tests'
   run_webserver &
   NODEPID=$!
 
   while ! echo | nc localhost 15004; do sleep 1; done
 
-  python -m unittest discover . 'test_node_*.py'
+  python -m unittest discover . "test_node_$TESTS.py"
 
   # Shutdown node webserver
   kill ${NODEPID}

