@@ -23,7 +23,8 @@ from modules import portsmod
 from modules import fingerwebmod
 from modules import checker
 from modules import hashid
-version='v1.6 Estable'
+from modules import sstimod
+version='v2.0 Estable'
 
 parser = argparse.ArgumentParser(prog='webhackshl.py',usage='python2 webhackshl.py',description='WebHackSHL es un conjunto de herramientas desarrollado por Security Hack Labs, para realizar auditorias de seguridad web desde basicas hasta avanzadas, diseñado especialmente para sistemas Debian o basados en el, como Kali Linux. Cualquier problema reportelo en Github o a nuestas cuentas de Email y/o Twitter.')
 parser.add_argument("-u", "--update", help="Actualiza WebHackSHL a la mas version mas reciente.", action="store_true")
@@ -91,7 +92,8 @@ try:
 	d) Realizar pruebas de penetracion web y analisis de vulnerabilidades.
         e) Buscar el panel admin de un sitio web.
         f) Ataques a contraseñas y hashing.
-        g) Salir.
+        g) Realizar inyección Server Side template Injection (SSTI) a un sitio web vulnerable.
+        h) Salir.
         """
         sel=raw_input("Selecciona: ")
         if sel == "a":
@@ -131,13 +133,19 @@ try:
             except KeyboardInterrupt:
                 webframework()
         elif sel == "g":
+            try:
+                sstimod.submenu()
+                webframework()
+            except KeyboardInterrupt:
+                webframework()
+        elif sel == "h":
             print "Saliendo."
                 
         else:
             webframework()
     webframework()
 
-except KeyboardInterrupt:
+except:
     print "Saliendo."
     pass
 os._exit(0)

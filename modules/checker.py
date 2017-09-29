@@ -79,12 +79,12 @@ def updatetools(DISTRO):
     respuesta=raw_input("Introduce tu opcion y=continua con la instalación, n=anula la instalación. y/n: ")
     if respuesta=="y" and DISTRO== "kalideb":
         cAmarillo("Para realizar esta instalación necesitas privilegios root o sudo, por favor introduzca tus credenciales cuando se le soliciten.")
-        cAmarillo("Añadiendo el repositorio temporal de Kali a tu lista de repossitorios ...")
+        cAmarillo("Añadiendo el repositorio temporal de Kali a tu lista de repositorios ...")
         print ""
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo apt update")
         cAmarillo("actualizando Herramientas del sistema...")
-        correctinstall==os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        correctinstall==os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python2  python2-requests  python2-yaml  python2-flask && cd tplmap/ && git pull")
         if correctinstall==0:
             print ""
             cVerde("La actualizacion se realizo correctamente.")
@@ -98,7 +98,7 @@ def updatetools(DISTRO):
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo pacman -Sy")
         cAmarillo("Actualizando Herramientas del sistema...")
-        correctinstall=os.system("sudo pacman --needed -S nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        correctinstall=os.system("sudo pacman --needed -S nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python2  python2-requests  python2-yaml  python2-flask && cd tplmap/ && git pull")
         if correctinstall==0:
             print ""
             cVerde("La actualizacion se realizo correctamente.")
@@ -120,7 +120,7 @@ def repokali():
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo apt update")
         cAmarillo("actualizando Herramientas del sistema...")
-        installcorrect=os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        installcorrect=os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python2  python2-requests  python2-yaml  python2-flask")
         if installcorrect == 0:
             print ""
             cRojo("La actualizacion se realizo correctamente.")
@@ -143,7 +143,7 @@ def repoarch():
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo pacman -Sy")
         cAmarillo("Actualizando herramientas del sistema...")
-        installcorrect=os.system("sudo pacman --needed -S nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        installcorrect=os.system("sudo pacman --needed -S nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python2  python2-requests  python2-yaml  python2-flask")
         if installcorrect == 0:
             print ""
             cRojo("La actualizacion se realizo correctamente.")
@@ -170,7 +170,7 @@ def installall(DISTRO):
         os.system("sudo apt update")
         os.system("clear")
         cAmarillo("Instalando los paquetes ...")
-        os.system("sudo apt install nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        os.system("sudo apt install nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python2  python2-requests  python2-yaml  python2-flask")
         print ""
         os.system("clear")
         cVerde("La instalacion se realizo correctamente.")
@@ -182,7 +182,7 @@ def installall(DISTRO):
         os.system("sudo pacman -Sy")
         os.system("clear")
         cAmarillo("Instalando los paquetes ...")
-        correctinstall=os.system("sudo pacman --needed -S nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john")
+        correctinstall=os.system("sudo pacman --needed -S nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python2  python2-requests  python2-yaml  python2-flask")
         if correctinstall == 0:
             print ""
             os.system("clear")
