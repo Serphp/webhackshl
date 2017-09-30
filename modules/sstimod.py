@@ -41,7 +41,7 @@ def sstipost():
     if ssitarget != "" and "." in ssitarget:
         ssipost=sqlimod.postglob()
         level=sqlimod.lev()
-        subprocess.call(["python2","modules/modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level])
+        subprocess.call(["python2","modules/tplmap/tplmap.py","-A",useragent,"-u",ssitarget,"--data",ssipost,"--level",level])
 
     else:
         checker.cRojo("La URL esta vacia o no es valida, intentalo de nuevo.\n")
