@@ -84,7 +84,7 @@ def updatetools(DISTRO):
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo apt update")
         cAmarillo("actualizando Herramientas del sistema...")
-        correctinstall==os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python  python-requests  python-yaml  python-flask && cd modules/tplmap/ && git pull")
+        correctinstall=os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python  python-requests  python-yaml  python-flask && cd modules/tplmap/ && git pull")
         if correctinstall==0:
             print ""
             cVerde("La actualizacion se realizo correctamente.")
