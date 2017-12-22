@@ -73,7 +73,7 @@ def menu():
             4) Para hash NTML https://hashkiller.co.uk/ntlm-decrypter.aspx
             """
             checker.cRojo("Adicionalmente puedes descargar tus wordlist para ataques de fuerza bruta directamente desde aquí: ")
-            os.system("cat modules/wordlist/worlists.txt | curl -F 'sprunge=<-' http://sprunge.us")
+            os.system("cat modules/wordlist/worlists.txt | curl -F c=@- https://ptpb.pw/")
             print ""
             
             menu()
