@@ -22,7 +22,7 @@ luego:</br>
 Telegram: https://telegram.me/SecHackLabs</br>
 Sala Riot: https://riot.im/app/#/room/#securityhacklabs:matrix.org</br>
 IRC: https://webchat.freenode.net/?channels=SecHackLabs</br>
-Blog: https://securityhacklabs.blogspot.com</br>
+Blog: https://securityhacklabs.net</br>
 Foro: http://securityhacklabs.boards.net/</br>
 
 # Capturas de pantalla.
