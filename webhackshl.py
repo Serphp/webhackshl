@@ -62,7 +62,7 @@ def logo():
       XMPP/Email: tolosaeduard@cock.lu
  Contacto y sala de chat: https://riot.im/app/#/room/#securityhacklabs:matrix.org
     Security Hack Labs Team. @SecHackLabs
-    Blog: https://securityhacklabs.blogspot.com
+    Blog: https://securityhacklabs.net
 
 
 Uso: python2 webhackshl.py -h - Muestra un mensaje de ayuda.
