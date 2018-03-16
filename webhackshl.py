@@ -25,9 +25,9 @@ from modules import fingerwebmod
 from modules import checker
 from modules import hashid
 from modules import sstimod
-version='v2.1 Estable'
+version='v2.2 Estable'
 
-os.chdir(os.path.dirname(sys.argv[0]))
+os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
 
 parser = argparse.ArgumentParser(prog='webhackshl.py',usage='python2 webhackshl.py',description='WebHackSHL es un conjunto de herramientas desarrollado por Security Hack Labs, para realizar auditorias de seguridad web desde basicas hasta avanzadas, diseñado especialmente para sistemas Debian o basados en el, como Kali Linux. Cualquier problema reportelo en Github o a nuestas cuentas de Email y/o Twitter.')
 parser.add_argument("-u", "--update", help="Actualiza WebHackSHL a la mas version mas reciente.", action="store_true")
