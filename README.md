@@ -7,19 +7,23 @@ Conocer la Versión de la herramienta: ~$ python2 /ruta/a/webhackshl.py -v</br>
 Actualizar la herramienta: ~$ python2 /ruta/a/webhackshl.py -u</br>
 Actualización total de la herramienta: ~$ python2 /ruta/a/webhackshl.py -ut</br>
 
-# Importante.
+# Usar la herramienta en ArchLinux.
+Abran la Terminal:</br>
 
-Si vas a ejecutar la herramienta desde el directorio directamente, debes añadir ./ antes del script, por ejemplo:</br>
-$python2 ./webhackshl.py
+~$ sudo pacman -S git</br></br>
 
-# Como Descargar de GitHub Nuestra Herramienta.
+luego:</br>
+
+~$ git clone https://github.com/SecHackLabs/webhackshl.git && cd webhackshl && python2 webhackshl.py</br></br>
+
+#Usar la herramienta en Debian.
 Abran la Terminal:</br>
 
 ~$ sudo apt install git</br></br>
 
 luego:</br>
 
-~$ git clone https://github.com/SecHackLabs/WebHackSHL.git && cd webhackshl && python2 ./webhackshl.py</br></br>
+~$ git clone https://github.com/SecHackLabs/webhackshl.git && cd webhackshl && python webhackshl.py</br></br>
 
 # Instalación.
 
