@@ -7,7 +7,7 @@ Conocer la Versión de la herramienta: ~$ python2 /ruta/a/webhackshl.py -v</br>
 Actualizar la herramienta: ~$ python2 /ruta/a/webhackshl.py -u</br>
 Actualización total de la herramienta: ~$ python2 /ruta/a/webhackshl.py -ut</br>
 
-#Importante.
+# Importante.
 
 Si vas a ejecutar la herramienta desde el directorio directamente, debes añadir ./ antes del script, por ejemplo:</br>
 $python2 ./webhackshl.py
@@ -27,7 +27,7 @@ Abre el directorio de descarga desde la terminal y ejecuta el siguiente comando:
 
 ~$ sudo bash install.sh</br></br>
 
-#Soporte y contacto.
+# Soporte y contacto.
 
 Telegram: https://telegram.me/SecHackLabs</br>
 Sala Riot: https://riot.im/app/#/room/#securityhacklabs:matrix.org</br>
