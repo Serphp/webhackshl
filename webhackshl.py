@@ -27,7 +27,23 @@ from modules import hashid
 from modules import sstimod
 version='v2.2 Estable'
 
-os.chdir(os.path.dirname(sys.argv[0]))
+def adjust_to_correct_appdir():
+    import os, sys
+    try:
+        appdir = sys.argv[0] 
+        if not appdir:
+            raise ValueError
+        appdir = os.path.abspath(os.path.dirname(sys.argv[0]))
+        os.chdir(appdir)
+        if not appdir in sys.path:
+            sys.path.insert(0,appdir)
+    except:
+        print 'Por favor, inicia el script desde una consola de comandos.'
+        import time
+        time.sleep(10)
+        sys.exit(1)
+
+adjust_to_correct_appdir()
 
 parser = argparse.ArgumentParser(prog='webhackshl.py',usage='python2 webhackshl.py',description='WebHackSHL es un conjunto de herramientas desarrollado por Security Hack Labs, para realizar auditorias de seguridad web desde basicas hasta avanzadas, diseñado especialmente para sistemas Debian o basados en el, como Kali Linux. Cualquier problema reportelo en Github o a nuestas cuentas de Email y/o Twitter.')
 parser.add_argument("-u", "--update", help="Actualiza WebHackSHL a la mas version mas reciente.", action="store_true")
