@@ -17,6 +17,12 @@ luego:</br>
 
 ~$ git clone https://github.com/SecHackLabs/WebHackSHL.git && cd WebHackSHL && python2 webhackshl.py</br></br>
 
+# Instalación.
+
+Abre el directorio de descarga desde la terminal y ejecuta el siguiente comando:</br>
+
+~$ sudo bash install.sh</br></br>
+
 #Soporte y contacto.
 
 Telegram: https://telegram.me/SecHackLabs</br>
