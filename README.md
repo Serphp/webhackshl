@@ -2,11 +2,15 @@
 
 WebHackSHL es un conjunto de herramientas desarrollado por Security Hack Labs, para realizar auditorias de seguridad web desde basicas hasta avanzadas, diseñado especialmente para sistemas Debian o basados en el, como Kali Linux.
 
-Uso: ~$ python2 webhackshl.py</br>
-Conocer la Versión de la herramienta: ~$ python2 webhackshl.py -v</br>
-Actualizar la herramienta: ~$ python2 webhackshl.py -u</br>
-Actualización total de la herramienta: ~$ python2 webhackshl.py -ut</br>
+Uso: ~$ python2 /ruta/a/webhackshl.py</br>
+Conocer la Versión de la herramienta: ~$ python2 /ruta/a/webhackshl.py -v</br>
+Actualizar la herramienta: ~$ python2 /ruta/a/webhackshl.py -u</br>
+Actualización total de la herramienta: ~$ python2 /ruta/a/webhackshl.py -ut</br>
 
+#Importante.
+
+Si vas a ejecutar la herramienta desde el directorio directamente, debes añadir ./ antes del script, por ejemplo:</br>
+$python2 ./webhackshl.py
 
 # Como Descargar de GitHub Nuestra Herramienta.
 Abran la Terminal:</br>
@@ -15,7 +19,7 @@ Abran la Terminal:</br>
 
 luego:</br>
 
-~$ git clone https://github.com/SecHackLabs/WebHackSHL.git && cd WebHackSHL && python2 webhackshl.py</br></br>
+~$ git clone https://github.com/SecHackLabs/WebHackSHL.git && cd webhackshl && python2 ./webhackshl.py</br></br>
 
 # Instalación.
 
