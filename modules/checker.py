@@ -73,7 +73,7 @@ def checkali():
         cRojo("Los Repositorios de Kali-rolling No existen y se añadiran para continuar")
         os.system("sudo echo -e '\ndeb http://http.kali.org/kali kali-rolling main contrib non-free' | sudo tee -a /etc/apt/sources.list")
         cAmarillo("Importando las claves de GNU/Kali Linux para ejecutar la instalacion...")
-        os.system("sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com ED444FF07D8D0BF6")
+        os.system("sudo wget -q -O - archive.kali.org/archive-key.asc | sudo apt-key add")
 
 def updatetools(DISTRO):
     respuesta=raw_input("Introduce tu opcion y=continua con la instalación, n=anula la instalación. y/n: ")
@@ -84,7 +84,7 @@ def updatetools(DISTRO):
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo apt update")
         cAmarillo("actualizando Herramientas del sistema...")
-        correctinstall=os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python  python-requests  python-yaml  python-flask && cd modules/tplmap/ && git pull")
+        correctinstall=os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python  python-requests  python-yaml  python-flask zlib1g-dev zlib1g && cd modules/tplmap/ && git pull")
         if correctinstall==0:
             print ""
             cVerde("La actualizacion se realizo correctamente.")
@@ -120,7 +120,7 @@ def repokali():
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo apt update")
         cAmarillo("actualizando Herramientas del sistema...")
-        installcorrect=os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python  python-requests  python-yaml  python-flask")
+        installcorrect=os.system("sudo apt install --only-upgrade nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python  python-requests  python-yaml  python-flask zlib1g-dev zlib1g")
         if installcorrect == 0:
             print ""
             cRojo("La actualizacion se realizo correctamente.")
@@ -170,7 +170,8 @@ def installall(DISTRO):
         os.system("sudo apt update")
         os.system("clear")
         cAmarillo("Instalando los paquetes ...")
-        os.system("sudo apt install nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python  python-requests  python-yaml  python-flask")
+        os.system("sudo apt install nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby git curl tor gzip john python  python-requests  python-yaml  python-flask zlib1g-dev zlib1g")
+
         print ""
         os.system("clear")
         cVerde("La instalacion se realizo correctamente.")
