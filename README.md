@@ -37,13 +37,27 @@ Abre el directorio de descarga desde la terminal y ejecuta el siguiente comando:
 
 ~$ sudo bash uninstall.sh - Para desinstalar</br>
 
+# Actualización de la herramienta.
+
+Si usted ha descargado e instalado la herramienta en su equipo usando el script <em>install.sh</em> y desea actualizarla a la versión más reciente deberá realizar lo siguiente:</br>
+
+1. Abrir la carpeta donde ha descargado la herramienta y ejecutar <code>python webhackshl.py -u</code> - en Debian - y <code>python2 webhackshl.py -u</code> - en ArchLinux. Una vez terminado el proceso deberás ejecutar el script <em>update.sh</em>. Lo cual da cómo resultado:</br>
+
+<strong>Actualización en Debian</strong></br>
+
+~$ python webhackshl.py -u && sudo update.sh</br>
+
+<strong>Actualización en ArchLinux</strong></br>
+
+~$ python2 webhackshl.py -u && sudo update.sh</br>
+
 # Soporte y contacto.
 
 Telegram: https://telegram.me/SecHackLabs</br>
 Sala Riot: https://riot.im/app/#/room/#securityhacklabs:matrix.org</br>
 IRC: https://webchat.freenode.net/?channels=SecHackLabs</br>
 Blog: https://securityhacklabs.net</br>
-Foro: http://securityhacklabs.net/</br>
+Foro: https://foro.securityhacklabs.net/</br>
 
 # Capturas de pantalla.
 
