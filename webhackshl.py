@@ -45,7 +45,7 @@ def adjust_to_correct_appdir():
 
 adjust_to_correct_appdir()
 
-parser = argparse.ArgumentParser(prog='webhackshl.py',usage='python2 webhackshl.py',description='WebHackSHL es un conjunto de herramientas desarrollado por Security Hack Labs, para realizar auditorias de seguridad web desde basicas hasta avanzadas, diseñado especialmente para sistemas Debian o basados en el, como Kali Linux. Cualquier problema reportelo en Github o a nuestas cuentas de Email y/o Twitter.')
+parser = argparse.ArgumentParser(prog='webhackshl.py',usage='python2 webhackshl.py',description='WebHackSHL es un conjunto de herramientas desarrollado por Security Hack Labs, para realizar auditorias de seguridad web desde basicas hasta avanzadas, diseñado especialmente para sistemas ArchLinux y Debian o basados en los mismos. Cualquier problema con la herramienta puede reportarlo en https://github.com/SecHackLabs/webhackshl/issues o en https://www.foro.securityhacklabs.net/viewforum.php?f=40.')
 parser.add_argument("-u", "--update", help="Actualiza WebHackSHL a la mas version mas reciente.", action="store_true")
 parser.add_argument("-ut", "--utools", help="Actualiza todas las herramientas Necesitadas por WebHackSHL en tu SO.", action="store_true")
 parser.add_argument("-v", "--version", help="Version de WebHackSHL", action="store_true")
@@ -78,7 +78,7 @@ def logo():
   \/  \/ \___|_.__/\/ /_/ \__,_|\___|_|\_\\\\__/\/ /_/\____/""", version, """
 
     Programador: Eduard Eliecer Tolosa Toloza 
-      XMPP/Email: tolosaeduard@cock.lu
+      XMPP/Email: edu4rdshl@disroot.org
  Contacto y sala de chat: https://riot.im/app/#/room/#securityhacklabs:matrix.org
     Security Hack Labs Team. @SecHackLabs
     Blog: https://securityhacklabs.net
