@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 gem 'colorize', '>=0.7'
-gem 'nokogiri', '~>1.6.7'
+gem 'nokogiri', '~>1.8.1'
 gem 'slop', '~>4.3'
 gem 'typhoeus', '~>1.0.2'
 
