@@ -54,7 +54,7 @@ Si usted ha descargado e instalado la herramienta en su equipo usando el script 
 # Soporte y contacto.
 
 Telegram: https://telegram.me/SecHackLabs</br>
-Sala Riot: https://riot.im/app/#/room/#securityhacklabs:matrix.org</br>
+Sala Riot: https://chat.securityhacklabs.net/#/room/#sechacklabs:disroot.org</br>
 IRC: https://webchat.freenode.net/?channels=SecHackLabs</br>
 Blog: https://securityhacklabs.net</br>
 Foro: https://foro.securityhacklabs.net/</br>
