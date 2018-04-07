@@ -239,7 +239,7 @@ def dtor():
 
 def gems():
     cVerde("Verificando que Bundler está en el sistema, esto puede tomar varios minutos la primera vez...")
-    gem=os.system("bundle | grep -q 'Bundle complete! 5 Gemfile dependencies, 15 gems now installed.'")
+    gem=os.system("bundle | grep -q 'Bundle complete!")
     if gem == 0:
         cVerde("0K - Bundler")
         pass
