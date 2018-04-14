@@ -84,7 +84,7 @@ def updatetools(DISTRO):
         cAmarillo("Actualizando tu lista de paquetes ...")
         os.system("sudo apt update")
         cAmarillo("actualizando Herramientas del sistema...")
-        correctinstall=os.system("sudo apt install nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby ruby-dev git curl tor gzip john python  python-requests  python-yaml  python-flask libc6-dev zlib1g-dev zlib1g && cd modules/tplmap/ && git pull")
+        correctinstall=os.system("sudo apt install nmap fierce sqlmap dnsenum nikto whatweb wpscan ruby ruby-dev git curl tor gzip john python  python-requests  python-yaml  python-flask libc6-dev zlib1g-dev zlib1g && cd modules/tplmap/ && git pull && cd joomlavs/ && git pull")
         if correctinstall==0:
             print ""
             cVerde("La actualizacion se realizo correctamente.")
@@ -238,6 +238,7 @@ def dtor():
             dtor()
 
 def gems():
+    os.system("PATH=`ruby -e 'puts Gem.user_dir'`/bin:$PATH")
     cVerde("Verificando que Bundler está en el sistema, esto puede tomar varios minutos la primera vez...")
     gem=os.system("bundle | grep -q 'Bundle complete!'")
     if gem == 0:
@@ -250,6 +251,7 @@ def gems():
     Esto puede tomar un tiempo.""")
             inst = raw_input("Deseas continuar con la instalación? y/n : ")
             if inst=="y":
+                os.system("PATH=`ruby -e 'puts Gem.user_dir'`/bin:$PATH")
                 cAmarillo("Instalando bundler...")
                 correctgem=os.system("sudo gem install bundler && bundle install")
                 if correctgem==0:

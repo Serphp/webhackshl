@@ -61,13 +61,13 @@ def nickscan():
 def joomsc():
     web=portsmod.host()
     checker.cAmarillo("Buscando vulnerabilidades en el sitio web usando joomlavs...")
-    subprocess.call(["ruby","joomlavs","-u",web,"-a"])
+    subprocess.call(["ruby","joomlavs/joomlavs.rb","-u",web,"-a"])
     execute()
 
 def joomsctor():
     web=host=portsmod.host()
     checker.cAmarillo("Buscando vulnerabilidades en el sitio web usando joomlavs usando TOR...")
-    subprocess.call(["ruby","joomlavs","-u",web,"--proxy","SOCKS5://127.0.0.1:9050","-a"])
+    subprocess.call(["ruby","joomlavs/joomlavs.rb","-u",web,"--proxy","SOCKS5://127.0.0.1:9050","-a"])
     execute()
 
 def wordpresscan():
