@@ -25,7 +25,7 @@ from modules import fingerwebmod
 from modules import checker
 from modules import hashid
 from modules import sstimod
-version='v2.2 Estable'
+version='v3.0 Estable'
 
 def adjust_to_correct_appdir():
     import os, sys
