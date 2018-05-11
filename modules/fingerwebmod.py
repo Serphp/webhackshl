@@ -13,110 +13,110 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import subprocess
-import portsmod
-import checker
+from subprocess import call
+from modules import portsmod
+from modules import checker
 from modules import logs
 
 def whatw():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
-    resp=raw_input("Introduce tu Respuesta y/n : ")
+    resp=input("Introduce tu Respuesta y/n : ")
     if resp=="y":
         web=portsmod.host()
         checker.cAmarillo("Obteniendo informacion del sitio web.")
-        print ""
+        checker.bspc()
         logsalida=logs.randomarch("whatweb/","WHATWEB",".log")
-        subprocess.call(["whatweb","-v", web, "--log-verbose",logsalida])
-        print ""
+        call(["whatweb","-v", web, "--log-verbose",logsalida])
+        checker.bspc()
         checker.cAmarillo("--------------------------------------------------------")
         checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsalida])
         checker.cAmarillo("--------------------------------------------------------")
-        print ""
+        checker.bspc()
     elif resp=="n":
         web=portsmod.host()
         checker.cAmarillo("Obteniendo informacion del sitio web.")
-        print ""
-        subprocess.call(["whatweb","-v", web])
+        checker.bspc()
+        call(["whatweb","-v", web])
         execute()
 
 def nickscan():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
-    resp=raw_input("Introduce tu Respuesta y/n : ")
+    resp=input("Introduce tu Respuesta y/n : ")
     if resp=="y":
         web=portsmod.host()
         checker.cAmarillo("Buscando vulnerabilidades en el sitio web usando nikto...")
         logsalida=logs.randomarch("nikto/","NIKTO",".html")
-        subprocess.call(["nikto","-no404","-host",web,"-o",logsalida])
-        print ""
+        call(["nikto","-no404","-host",web,"-o",logsalida])
+        checker.bspc()
         checker.cAmarillo("--------------------------------------------------------")
         checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsalida])
         checker.cAmarillo("--------------------------------------------------------")
-        print ""
+        checker.bspc()
     elif resp=="n":
         web=portsmod.host()
         checker.cAmarillo("Buscando vulnerabilidades en el sitio web usando nikto...")
-        subprocess.call(["nikto","-no404","-host",web])
+        call(["nikto","-no404","-host",web])
     execute()
 
 def joomsc():
     web=portsmod.host()
     checker.cAmarillo("Buscando vulnerabilidades en el sitio web usando joomlavs...")
-    subprocess.call(["ruby","joomlavs/joomlavs.rb","-u",web,"-a"])
+    call(["ruby","joomlavs/joomlavs.rb","-u",web,"-a"])
     execute()
 
 def joomsctor():
     web=host=portsmod.host()
     checker.cAmarillo("Buscando vulnerabilidades en el sitio web usando joomlavs usando TOR...")
-    subprocess.call(["ruby","joomlavs/joomlavs.rb","-u",web,"--proxy","SOCKS5://127.0.0.1:9050","-a"])
+    call(["ruby","joomlavs/joomlavs.rb","-u",web,"--proxy","SOCKS5://127.0.0.1:9050","-a"])
     execute()
 
 def wordpresscan():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
-    resp=raw_input("Introduce tu Respuesta y/n : ")
+    resp=input("Introduce tu Respuesta y/n : ")
     if resp=="y":
         web=portsmod.host()
         logsalida=logs.randomarch("wpscan/","WPSCAN",".log")
-        subprocess.call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u","--log",logsalida])
-        print ""
+        call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u","--log",logsalida])
+        checker.bspc()
         checker.cAmarillo("--------------------------------------------------------")
         checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsalida])
         checker.cAmarillo("--------------------------------------------------------")
-        print ""
+        checker.bspc()
     elif resp=="n":
         web=portsmod.host()
-        subprocess.call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u"])
+        call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u"])
     execute()
 
 def wordpresscantor():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
-    resp=raw_input("Introduce tu Respuesta y/n : ")
+    resp=input("Introduce tu Respuesta y/n : ")
     if resp=="y":
         web=portsmod.host()
         logsalida=logs.randomarch("wpscan/","WPSCAN",".log")
         web=portsmod.host()
         checker.cAmarillo("Buscando vulnerabilidades en el sitio web usando wpscan...")
-        subprocess.call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u","--proxy","socks5://127.0.0.1:9050","--log",logsalida])
-        print ""
+        call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u","--proxy","socks5://127.0.0.1:9050","--log",logsalida])
+        checker.bspc()
         checker.cAmarillo("--------------------------------------------------------")
         checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsalida])
         checker.cAmarillo("--------------------------------------------------------")
-        print ""
+        checker.bspc()
     elif resp=="n":
         web=portsmod.host()
-        subprocess.call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u","--proxy","socks5://127.0.0.1:9050"])
+        call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u","--proxy","socks5://127.0.0.1:9050"])
     execute()
 
 def execute():
     checker.cAmarillo("Seleccina una de las siguientes opciones:")
-    print """
+    print("""
     a) Obtener informacion del sistio web, servidor, Ip, CMS, Software del servidor y mas.
     b) Buscar vulnerabilidades web usando nikto.
     c) Buscar vulnerabilidades web de sitios web Joomla.
     d) Buscar vulnerabilidades web de sitios web Joomla usando TOR.
     e) Buscar vulnerabilidades web de sitios web con WordPress
     f) Buscar vulnerabilidades web de sitios web con WordPress usando TOR.
-    g) Salir."""
-    sel=raw_input("Introduce tu opcion: ")
+    g) Salir.""")
+    sel=input("Introduce tu opcion: ")
     if sel== "a":
         whatw()
     elif sel == "b":
@@ -130,6 +130,6 @@ def execute():
     elif sel == "f":
         wordpresscantor()
     elif sel == "g":
-        print "Saliendo."
+        print ("Saliendo.")
     else:
         execute()

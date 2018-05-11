@@ -38,14 +38,14 @@ def adjust_to_correct_appdir():
         if not appdir in sys.path:
             sys.path.insert(0,appdir)
     except:
-        print 'Por favor, inicia el script desde una consola de comandos.'
+        print ('Por favor, inicia el script desde una consola de comandos.')
         import time
         time.sleep(10)
         sys.exit(1)
 
 adjust_to_correct_appdir()
 os.system("cp joomlavs/Gemfile .")
-parser = argparse.ArgumentParser(prog='webhackshl.py',usage='python2 webhackshl.py',description='WebHackSHL es un conjunto de herramientas desarrollado por Security Hack Labs, para realizar auditorias de seguridad web desde basicas hasta avanzadas, diseñado especialmente para sistemas ArchLinux y Debian o basados en los mismos. Cualquier problema con la herramienta puede reportarlo en https://github.com/SecHackLabs/webhackshl/issues o en https://www.foro.securityhacklabs.net/viewforum.php?f=40.')
+parser = argparse.ArgumentParser(prog='webhackshl.py',usage='python2 webhackshl.py',description='WebHackSHL es un conjunto de herramientas desarrollado por Security Hack Labs, para realizar auditorias de seguridad web desde basicas hasta avanzadas, diseñado especialmente para sistemas ArchLinux y Debian o basados en los mismos. Cualquier problema con la herramienta puede reportarlo en https://github.com/SecHackLabs/webhackshl/issues o en https://www.securityhacklabs.net/forum.')
 parser.add_argument("-u", "--update", help="Actualiza WebHackSHL a la mas version mas reciente.", action="store_true")
 parser.add_argument("-ut", "--utools", help="Actualiza todas las herramientas Necesitadas por WebHackSHL en tu SO.", action="store_true")
 parser.add_argument("-v", "--version", help="Version de WebHackSHL", action="store_true")
@@ -53,9 +53,9 @@ args = parser.parse_args()
 
 # Aquí procesamos lo que se tiene que hacer con cada argumento
 if args.update:   
-       print "Actualizando WebHackSHL..."
+       print ("Actualizando WebHackSHL...")
        os.system("git pull")
-       print "WebHackSHL actualizado correctamente."
+       print ("WebHackSHL actualizado correctamente.")
        os._exit(0)
 
 # Aqui procesamos el update a la herramientas del sistema.
@@ -66,11 +66,11 @@ if args.utools:
 
 # Version de la herramienta.
 if args.version:
-    print "Versión: ",version
+    print ("Versión: ",version)
     os._exit(0)
 
 def logo():
-    print """
+    print ("""
  __    __     _                      _     __          __  
 / / /\ \ \___| |__   /\  /\__ _  ___| | __/ _\  /\  /\/ /
 \ \/  \/ / _ \ '_ \ / /_/ / _` |/ __| |/ /\ \  / /_/ / /   
@@ -87,24 +87,24 @@ def logo():
 Uso: python2 webhackshl.py -h - Muestra un mensaje de ayuda.
      python2 webhackshl.py -u - Actualiza WebHackSHL a la versión mas reciente.
      python2 webhachshl.py -ut - Actualiza las Herramientas necesarias para WebHackSHL
-"""
+""")
 
 def disclaimer():
     checker.cRojo("Advertencia legal: El uso de WebHackSHL para atacar objetivos sin el consentimiento mutuo previo es ilegal. Es responsabilidad del usuario final a obedecer todas las leyes aplicables locales, estatales y federales. Los desarrolladores no asumen ninguna responsabilidad y no son responsables de cualquier mal uso o daño causado por este programa")
 try:
     logo()
-    print ""
+    print ("")
     disclaimer()
-    print ""
+    print ("")
     checker.check()
-    print ""
+    print ("")
     checker.gems()
-    print ""
+    print ("")
     checker.dtor()
     def webframework():
-        print ""
+        print ("")
         checker.cAmarillo("""Selecciona una de las siguientes opciones.""")
-        print """
+        print ("""
 	a) Buscar URLs vulnerables a SQLi, LFI, RCE, XSS.
         b) Realizar SQLi a una web vulnerable a SQLi.
         c) Realizar un escaneo completo de un host, enumerar DNS, Bypassear Cloudflare y mas.
@@ -113,11 +113,11 @@ try:
         f) Ataques a contraseñas y hashing.
         g) Realizar inyección Server Side template Injection (SSTI) a un sitio web vulnerable.
         h) Salir.
-        """
-        sel=raw_input("Selecciona: ")
+        """)
+        sel=eval(input("Selecciona: "))
         if sel == "a":
             try:
-                os.system("python2 modules/sqlitest.py")    
+                os.system("python modules/sqlitest.py")    
                 webframework()
             except KeyboardInterrupt:
                 webframework()
@@ -158,13 +158,13 @@ try:
             except KeyboardInterrupt:
                 webframework()
         elif sel == "h":
-            print "Saliendo."
+            print ("Saliendo.")
                 
         else:
             webframework()
     webframework()
 
 except:
-    print "Saliendo."
+    print ("Saliendo.")
     pass
 os._exit(0)

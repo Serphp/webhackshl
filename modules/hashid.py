@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 # encoding: utf-8
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -13,20 +13,19 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import subprocess
 import os
-import checker
-import johnmod
+from modules import checker
+from modules import johnmod
 
 def menu():
     checker.cAmarillo("\nElige la tarea que quieres realizar:")
-    print """
+    print ("""
     a) Identificacion de hashes.
     b) Desencriptación de hashes usando John The Ripper + Wordlists.
     c) Desencriptacion de Hashes online y Wordlist para bruteforce.
     d) Salir.
-    """
-    option=raw_input("Introduce tu opcion: ")
+    """)
+    option=input("Introduce tu opcion: ")
     try:
         if option == "a":
             os.system("python2 modules/hashidentifier")
@@ -34,15 +33,15 @@ def menu():
 
         elif option == "b":
             checker.cAmarillo("Elige la opción que deseas usar: ")
-            print """
+            print ("""
                 a) Desencriptación de un Hash tipo MD5.
                 b) Desencriptación de un Hash tipo Sha-1.
                 c) Desencriptación de un Hash tipo MySQL.
                 d) Desencriptación de un Hash tipo Django.
                 e) Desencriptación de cualquier tipo de Hash (Debes conocer previamente el tipo de Hash).
                 f) Regresar al menú anterior.
-                """
-            tipodehashh=raw_input("Teclea tu opción: ")
+                """)
+            tipodehashh=input("Teclea tu opción: ")
             if tipodehashh == "a":
                 johnmod.md5hash()
                 menu()
@@ -59,26 +58,26 @@ def menu():
                 johnmod.anyhash()
                 menu()
             elif tipodehashh == "f":
-                print "Regresando al menú anterior.\n"
+                print ("Regresando al menú anterior.\n")
                 pass
             else:
-                print "Opción invalida, intentalo de nuevo."
+                print ("Opción invalida, intentalo de nuevo.")
                 menu()
         elif option == "c":
             checker.cAmarillo("Utiliza las siguientes direcciones Web para buscar tus hash.")
-            print """
+            print ("""
             1) Para hash MD5 - https://hashkiller.co.uk/md5-decrypter.aspx
             2) Para hash Sha-1 - https://hashkiller.co.uk/sha1-decrypter.aspx
             3) Para claves WPA/WPA2 - https://hashkiller.co.uk/wpa-crack.aspx
             4) Para hash NTML https://hashkiller.co.uk/ntlm-decrypter.aspx
-            """
+            """)
             checker.cRojo("Adicionalmente puedes descargar tus wordlist para ataques de fuerza bruta directamente desde aquí: ")
             os.system("cat modules/wordlist/worlists.txt | curl -F c=@- https://ptpb.pw/?u=1")
-            print ""
+            checker.bspc()
             
             menu()
         elif option == "d":
-            print "Saliendo."
+            print ("Saliendo.")
         else:
             menu()
     except KeyboardInterrupt:

