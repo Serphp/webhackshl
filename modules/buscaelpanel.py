@@ -25,7 +25,7 @@ import checker
 try:
     print "\t#####################################################"
     print "\t#    Programador: Eduard Eliecer Tolosa Toloza      #"
-    print "\t#            tolosaeduard@cock.lu                   #"
+    print "\t#        edu4rdshl@securityhacklabs.net             #"
     print "\t#                                                   #"
     print "\t#             buscaelpanel.py  v.1.0                #"
     print "\t#                                                   #"

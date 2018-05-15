@@ -14,6 +14,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from subprocess import call
 from modules import checker
+from re import sub
 
 def rsk():
     try:
@@ -51,7 +52,7 @@ def urlglob():
     try:
         global url
         url=input("introduce la url vulnerable: ")
-        url=url.translate(None, "%+'")
+        url=sub('\'', '', url)
         if url and "?" in url and "." in url:
             return url
         elif url == "":
@@ -70,7 +71,7 @@ def postglob():
     try:
         global post
         post=input("Introduce los datos post para la inyeccion: ")
-        post=post.translate(None, "%+'") 
+        post=sub('\'', '', post)
         if post:
             return post
         elif post == "":

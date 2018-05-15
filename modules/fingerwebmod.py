@@ -39,6 +39,7 @@ def whatw():
         call(["whatweb","-v", web])
         execute()
 
+
 def nickscan():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
     resp=input("Introduce tu Respuesta y/n : ")
@@ -109,7 +110,7 @@ def wordpresscantor():
 def execute():
     checker.cAmarillo("Seleccina una de las siguientes opciones:")
     print("""
-    a) Obtener informacion del sistio web, servidor, Ip, CMS, Software del servidor y mas.
+    a) Obtener informacion del sitio web, servidor, Ip, CMS, Software del servidor y mas.
     b) Buscar vulnerabilidades web usando nikto.
     c) Buscar vulnerabilidades web de sitios web Joomla.
     d) Buscar vulnerabilidades web de sitios web Joomla usando TOR.

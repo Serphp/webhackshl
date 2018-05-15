@@ -21,19 +21,19 @@ def host():
     global target
     target=input("Introduce el host al que deseas hacerle el scan: ")
     if target:
+        return target
+    else:
         checker.cRojo("Host invalido.")
         host()
-    else:
-        return target
 
 def port():
     global portnumber
     portnumber=input("Introduce el puerto o los puertos que deseas escanear (Si deseas un rango de puertos, escribelos de la manera 1-1000): ")
     if portnumber:
+        return portnumber
+    else:
         checker.cRojo("Puerto invalido.")
         port()
-    else:
-        return portnumber
 
 def intensescan():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
