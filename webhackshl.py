@@ -25,7 +25,7 @@ from modules import fingerwebmod
 from modules import checker
 from modules import hashid
 from modules import sstimod
-version='v3.0 Estable'
+version='v4.0 Estable'
 
 def adjust_to_correct_appdir():
     import os, sys
@@ -79,14 +79,16 @@ def logo():
 
     Programador: Eduard Eliecer Tolosa Toloza 
       XMPP/Email: edu4rdshl@disroot.org
- Contacto y sala de chat: https://riot.im/app/#/room/#securityhacklabs:matrix.org
+ Contacto y sala de chat: https://www.chat.securityhacklabs.net/#/room/#sechacklabs:disroot.org
+     Telegram: https://telegram.me/sechacklabs
+         IRC: #sechacklabs en Freenode
     Security Hack Labs Team. @SecHackLabs
     Blog: https://securityhacklabs.net
 
 
-Uso: python2 webhackshl.py -h - Muestra un mensaje de ayuda.
-     python2 webhackshl.py -u - Actualiza WebHackSHL a la versión mas reciente.
-     python2 webhachshl.py -ut - Actualiza las Herramientas necesarias para WebHackSHL
+Uso: python webhackshl.py -h - Muestra un mensaje de ayuda.
+     python webhackshl.py -u - Actualiza WebHackSHL a la versión mas reciente.
+     python webhachshl.py -ut - Actualiza las Herramientas necesarias para WebHackSHL
 """)
 
 def disclaimer():
@@ -114,10 +116,10 @@ try:
         g) Realizar inyección Server Side template Injection (SSTI) a un sitio web vulnerable.
         h) Salir.
         """)
-        sel=eval(input("Selecciona: "))
+        sel=input("Selecciona: ")
         if sel == "a":
             try:
-                os.system("python modules/sqlitest.py")    
+                os.system("python2 modules/sqlitest.py")    
                 webframework()
             except KeyboardInterrupt:
                 webframework()
