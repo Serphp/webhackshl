@@ -54,4 +54,8 @@ Blog: https://securityhacklabs.net</br>
 Foro: https://foro.securityhacklabs.net/</br>
 
 # Capturas de pantalla.
+-![Alt text](https://raw.githubusercontent.com/SecHackLabs/webhackshl/python3/screenshots/webhackshl-main.png "Main Screen")          
+-![Alt text](https://raw.githubusercontent.com/SecHackLabs/webhackshl/python3/screenshots/webhackshl-dorksearch.png "Dork Script")  
+-![Alt text](https://raw.githubusercontent.com/SecHackLabs/webhackshl/python3/screenshots/webhackshl-dns.png "DNS Search") 
+-![Alt text](https://raw.githubusercontent.com/SecHackLabs/webhackshl/python3/screenshots/webhackshl-adminfind.png "Admin Finder Script") 
 
