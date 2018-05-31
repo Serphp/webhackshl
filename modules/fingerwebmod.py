@@ -17,6 +17,7 @@ from subprocess import call
 from modules import portsmod
 from modules import checker
 from modules import logs
+import os
 
 def whatw():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
@@ -75,12 +76,16 @@ def wordpresscan():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
     resp=input("Introduce tu Respuesta y/n : ")
     if resp=="y":
+        logsdirectory="/opt/wpscan/modules/logs/wpscan/"
+        if not os.path.exists(logsdirectory):
+            print ("El directorio ",logsdirectory," no existe, se creará.")
+            os.system("sudo mkdir -p /opt/wpscan/modules/logs/wpscan/")
         web=portsmod.host()
         logsalida=logs.randomarch("wpscan/","WPSCAN",".log")
         call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u","--log",logsalida])
         checker.bspc()
         checker.cAmarillo("--------------------------------------------------------")
-        checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsalida])
+        checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsdirectory])
         checker.cAmarillo("--------------------------------------------------------")
         checker.bspc()
     elif resp=="n":
@@ -92,6 +97,10 @@ def wordpresscantor():
     checker.cRojo("Desea Guardar el logs de la informacion? y/n : ")
     resp=input("Introduce tu Respuesta y/n : ")
     if resp=="y":
+        logsdirectory="/opt/wpscan/modules/logs/wpscan/"
+        if not os.path.exists(logsdirectory):
+            print ("El directorio ",logsdirectory," no existe, se creará.")
+            os.system("sudo mkdir -p /opt/wpscan/modules/logs/wpscan/")
         web=portsmod.host()
         logsalida=logs.randomarch("wpscan/","WPSCAN",".log")
         web=portsmod.host()
@@ -99,7 +108,7 @@ def wordpresscantor():
         call(["sudo","wpscan","-u",web,"--enumerate","p","--enumerate","t","--enumerate","u","--proxy","socks5://127.0.0.1:9050","--log",logsalida])
         checker.bspc()
         checker.cAmarillo("--------------------------------------------------------")
-        checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsalida])
+        checker.cRojo(["Tu log se ha Guardado en la ruta: ",logsdirectory])
         checker.cAmarillo("--------------------------------------------------------")
         checker.bspc()
     elif resp=="n":
